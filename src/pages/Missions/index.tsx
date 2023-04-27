@@ -5,41 +5,60 @@ import { MissionListItem } from '../../components/MissionListItem'
 import { FlatList } from 'react-native'
 import MissionsApi from '../../services/MissionsApi'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useUser } from '../../contexts/AuthContext'
 
 export const Missions: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const { userKey } = useUser()
 
-  const [missions, setMissions] = useState<App.Mission[]>([])
+  const [missions, setMissions] = useState<App.MissionInProgress[]>([])
+
+  const [isPending, setIsPending] = useState(true)
+  const [isApproved, setIsApproved] = useState(false)
+  const [isReject, setIsReject] = useState(false)
+
+  const activePending = () => {
+    setIsPending(true)
+    setIsApproved(false)
+    setIsReject(false)
+  }
+
+  const activeApproved = () => {
+    setIsPending(false)
+    setIsApproved(true)
+    setIsReject(false)
+  }
+
+  const activeReject = () => {
+    setIsPending(false)
+    setIsApproved(false)
+    setIsReject(true)
+  }
 
   useEffect(() => {
-    async function exec() {
-      const key = await AsyncStorage.getItem('key')
-      MissionsApi.list(key).then((res) => setMissions(res.data))
-    }
-
-    exec()
+    MissionsApi.listMissionsInProgress(userKey).then((res) => setMissions(res.data))
   }, [])
 
   return (
     <Container>
       <Header title="Minhas missões" />
       <ButtonsArea>
-        <Button isActive={true}>
-          <ButtonText isActive={true}>Pendentes</ButtonText>
+        <Button onPress={activePending} isActive={isPending}>
+          <ButtonText isActive={isPending}>Pendentes</ButtonText>
         </Button>
-        <Button isActive={false}>
-          <ButtonText isActive={false}>Aprovados</ButtonText>
+        <Button onPress={activeApproved} isActive={isApproved}>
+          <ButtonText isActive={isApproved}>Aprovados</ButtonText>
         </Button>
-        <Button isActive={false}>
-          <ButtonText isActive={false}>Reprovados</ButtonText>
+        <Button onPress={activeReject} isActive={isReject}>
+          <ButtonText isActive={isReject}>Reprovados</ButtonText>
         </Button>
       </ButtonsArea>
       <Wrapper>
         <Title>Missões em andamento</Title>
-        {missions.map((item, index) => {
+        {missions?.map((item, index) => {
           return (
             <MissionListItem
               id={item.id}
+              id_camp={item.id_camp}
               img={item.img}
               name={item.name}
               status={item.status}

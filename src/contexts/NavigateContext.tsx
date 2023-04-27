@@ -28,7 +28,7 @@ type SupportScreenProps = NativeStackNavigationProp<RootStackParamsList, 'Suppor
 interface NavigateContextData {
   navigateToLogin: () => void
   navigateToRegister: () => void
-  navigateToMissionDetail: () => void
+  navigateToMissionDetail: (id: number) => void
   navigateToCoupons: () => void
   navigateToMissionsStackRoutes: () => void
   navigateToNewMissions: () => void
@@ -70,8 +70,8 @@ export const NavigateProvider = ({ children }: NavigateProviderProps) => {
     navigationForgotPassword.navigate('ForgotPassword')
   }
 
-  const navigateToMissionDetail = () => {
-    navigationMissionDetail.navigate('MissionDetail')
+  const navigateToMissionDetail = (id: number) => {
+    navigationMissionDetail.navigate('MissionDetail', { id })
   }
 
   const navigateToCoupons = () => {

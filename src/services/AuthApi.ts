@@ -1,5 +1,6 @@
 import { Alert } from 'react-native'
 import { api } from './api'
+import md5 from 'md5'
 
 class AuthApi {
   public async register(data: App.Register) {
@@ -8,14 +9,12 @@ class AuthApi {
     fd.append('email', data.email)
     fd.append('birth', data.birth)
     fd.append('tel', data.tel)
-    fd.append('pwd', data.pwd)
+    fd.append('pwd', md5(data.pwd))
     fd.append('street', data.street)
     fd.append('city', data.city)
     fd.append('state', data.state)
     fd.append('social_link', data.social_link)
     fd.append('social_link_2', data.social_link_2)
-
-    console.log(fd)
 
     return api
       .post('/actions/register_app', fd, {
@@ -27,7 +26,7 @@ class AuthApi {
   }
 
   public async login({ email, pwd }) {
-    return api.post('/actions/login_app', { email, pwd })
+    return api.post('/actions/login_app', { email, pwd: md5(pwd) })
   }
 
   public async checkToken(key: string) {

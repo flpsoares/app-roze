@@ -6,12 +6,12 @@ interface DropdownListProps {
   id: number
 }
 
-export const DropdownMissionList: React.FC = () => {
+export const DropdownMissionList: React.FC<DropdownListProps> = ({ id }) => {
   const { navigateToMissionDetail } = useNavigate()
 
   return (
     <Container>
-      <Button onPress={navigateToMissionDetail}>
+      <Button onPress={() => navigateToMissionDetail(id)}>
         <ButtonText>Detalhes da missão</ButtonText>
       </Button>
       <Line />

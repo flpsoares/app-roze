@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Alert } from 'react-native'
 import {
   ButtonSubmit,
   ButtonSubmitText,
@@ -8,6 +9,8 @@ import {
   Name,
   Title
 } from './style'
+import MissionsApi from '../../../services/MissionsApi'
+import { useUser } from '../../../contexts/AuthContext'
 
 interface NewMissionsListItemProps {
   id: number
@@ -22,6 +25,15 @@ export const NewMissionsListItem: React.FC<NewMissionsListItemProps> = ({
   title,
   name
 }) => {
+  const { userKey } = useUser()
+
+  const participate = () => {
+    MissionsApi.sendParticipate(userKey, id).then((res) => {
+      Alert.alert('Sucesso', res.data.text)
+      console.log(res.data)
+    })
+  }
+
   return (
     <Container>
       <Image source={{ uri: image }} />
@@ -29,7 +41,7 @@ export const NewMissionsListItem: React.FC<NewMissionsListItemProps> = ({
         <Title>{title}</Title>
         <Name>{name}</Name>
       </Info>
-      <ButtonSubmit>
+      <ButtonSubmit onPress={participate}>
         <ButtonSubmitText>Participar</ButtonSubmitText>
       </ButtonSubmit>
     </Container>

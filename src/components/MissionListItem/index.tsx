@@ -4,16 +4,8 @@ import { primary } from '../../styles/globalVar'
 import { DropdownMissionList } from '../DropdownMissionList'
 import { Entypo } from '@expo/vector-icons'
 
-interface MissionListItemProps {
-  id: number
-  title: string
-  name: string
-  image: string
-  status: string
-}
-
-export const MissionListItem: React.FC<App.Mission> = ({
-  id,
+export const MissionListItem: React.FC<App.MissionInProgress> = ({
+  id_camp,
   name,
   store,
   img,
@@ -39,7 +31,7 @@ export const MissionListItem: React.FC<App.Mission> = ({
           color={primary}
         />
       </Menu>
-      {isOpen && <DropdownMissionList />}
+      {isOpen && <DropdownMissionList id={id_camp} />}
     </Container>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ButtonObjective,
   ButtonObjectiveText,
@@ -19,10 +19,10 @@ import {
   SecondModalContainer,
   SecondModalTitle,
   SecondModalBanner,
-  SecondModalButtonClose
+  SecondModalButtonClose,
+  Banner
 } from './style'
 import { Header } from '../../components/Header'
-import { Banner } from '../../components/layout/MissionDetail/Banner'
 import { Discount } from '../../components/layout/MissionDetail/Discount'
 import { Description } from '../../components/layout/MissionDetail/Description'
 import { CompleteMission } from '../../components/layout/MissionDetail/CompleteMission'
@@ -30,15 +30,43 @@ import { Numbers } from '../../components/layout/MissionDetail/Numbers'
 import { AntDesign } from '@expo/vector-icons'
 
 import Modal from 'react-native-modal'
+import { useRoute, RouteProp } from '@react-navigation/native'
+import { RootStackParamsList } from '../../routes/RootStackParamsList'
+import MissionsApi from '../../services/MissionsApi'
+import { useUser } from '../../contexts/AuthContext'
+import { Alert } from 'react-native'
 
 export const MissionDetail: React.FC = () => {
+  const { userKey } = useUser()
+
+  const route = useRoute<RouteProp<RootStackParamsList, 'MissionDetail'>>()
+
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [secondModalIsOpen, setSecondModalIsOpen] = useState(false)
+  const [mission, setMission] = useState<App.MissionDetail>()
+
+  const [link, setLink] = useState('')
 
   const changeModal = () => {
     setModalIsOpen(false)
     setSecondModalIsOpen(true)
   }
+
+  const sendLink = () => {
+    if (link !== '') {
+      MissionsApi.sendLink(userKey, route.params.id, link).then((res) => {
+        changeModal()
+      })
+    } else {
+      Alert.alert('Erro', 'Digite um link antes de confirmar')
+    }
+  }
+
+  useEffect(() => {
+    MissionsApi.detail(userKey, route.params.id).then((res) => {
+      setMission(res.data)
+    })
+  }, [])
 
   return (
     <ScrollableContainer
@@ -47,15 +75,15 @@ export const MissionDetail: React.FC = () => {
     >
       <Container>
         <Header hasPadding title="Detalhes da missão" />
-        <Banner />
+        <Banner source={{ uri: mission?.img }} />
         <Wrapper>
-          <Discount />
-          <Description />
+          <Discount text={mission?.base_award} />
+          <Description text={mission?.desc} />
           <CompleteMission />
           <ButtonObjective onPress={() => setModalIsOpen(true)}>
             <ButtonObjectiveText>Objetivo da missão</ButtonObjectiveText>
           </ButtonObjective>
-          <Numbers />
+          {/* <Numbers /> */}
         </Wrapper>
         <Modal
           onBackdropPress={() => setModalIsOpen(false)}
@@ -70,18 +98,19 @@ export const MissionDetail: React.FC = () => {
               </ModalCloseButton>
             </ModalHeader>
             <ModalSubTitle>Objetivo da missão</ModalSubTitle>
-            <ModalInfo>
+            {/* <ModalInfo>
               <ModalInfoText>Número de visualizações: 80,000</ModalInfoText>
               <ModalInfoText>Número de curtidas: 80,000</ModalInfoText>
               <ModalInfoText>Lorem ipsum: 80,000</ModalInfoText>
-            </ModalInfo>
-            <Discount />
+            </ModalInfo> */}
+            <Discount text={mission?.base_award} />
             <ModalSendLinkText>Enviar o link para Aprovação</ModalSendLinkText>
             <ModalInput
               placeholder="https://www.instagram.com/"
               placeholderTextColor="#a1a1a1"
+              onChangeText={(value) => setLink(value)}
             />
-            <ModalButtonSubmit onPress={changeModal}>
+            <ModalButtonSubmit onPress={sendLink}>
               <ModalButtonSubmitText>Confirmar envio</ModalButtonSubmitText>
             </ModalButtonSubmit>
           </ModalContainer>

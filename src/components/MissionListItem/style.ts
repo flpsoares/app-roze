@@ -44,9 +44,9 @@ interface StatusProps {
 export const Status = styled.Text<StatusProps>`
   margin-right: 28px;
   color: ${(props) =>
-    props.status === 'Pendente'
+    props.status === 'pending'
       ? '#E48900'
-      : props.status === 'Aceita'
+      : props.status === 'approved'
       ? '#00CC52'
       : '#E02B1D'};
 `

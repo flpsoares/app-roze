@@ -148,3 +148,8 @@ export const SecondModalButtonClose = styled.TouchableOpacity`
   top: 15px;
   right: 15px;
 `
+
+export const Banner = styled.Image`
+  height: 300px;
+  width: 100%;
+`

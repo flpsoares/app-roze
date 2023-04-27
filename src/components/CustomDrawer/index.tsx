@@ -3,6 +3,7 @@ import { Text } from 'react-native'
 import {
   Avatar,
   AvatarArea,
+  AvatarBorder,
   Container,
   Email,
   Item,
@@ -35,7 +36,9 @@ export const CustomDrawer: React.FC = () => {
     <Container>
       <ProfileArea>
         <AvatarArea>
-          <Avatar source={require('../../../public/assets/Auth/banner.png')} />
+          <AvatarBorder>
+            <Avatar source={require('../../../public/assets/Auth/banner.png')} />
+          </AvatarBorder>
         </AvatarArea>
         <Name>Carlos André</Name>
         <Email>andre_exemplo@gmail.com</Email>

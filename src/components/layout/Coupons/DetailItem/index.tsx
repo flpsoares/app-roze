@@ -34,7 +34,7 @@ import Modal from 'react-native-modal'
 import { AntDesign } from '@expo/vector-icons'
 import { DropdownCouponDetail } from '../../../DropdownCouponDetail'
 
-export const DetailItem: React.FC = () => {
+export const DetailItem: React.FC<App.Coupom> = (coupom) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false)
 
@@ -57,8 +57,8 @@ export const DetailItem: React.FC = () => {
           <ItemAvatarImage source={{ uri: 'https://picsum.photos/id/1/200/300' }} />
         </ItemAvatarItem>
         <ItemTopInfo>
-          <Name>Lorem</Name>
-          <NormalText>Restaurante</NormalText>
+          <Name>{coupom.name}</Name>
+          <NormalText>{coupom.store}</NormalText>
         </ItemTopInfo>
       </ItemTop>
       <Line></Line>
@@ -87,18 +87,16 @@ export const DetailItem: React.FC = () => {
       >
         <ModalContainer>
           <ModalAvatarItem>
-            <ModalAvatarImage
-              source={{ uri: 'https://picsum.photos/id/1/200/300' }}
-            />
+            <ModalAvatarImage source={{ uri: coupom.img }} />
           </ModalAvatarItem>
-          <ModalTitle>Lorem Restaurante</ModalTitle>
+          <ModalTitle>{coupom.store}</ModalTitle>
           <LineInfo>
             <ModalDiscountNumber>80%</ModalDiscountNumber>
             <ModalDiscountText>De desconto</ModalDiscountText>
           </LineInfo>
           <ModalValidity>Validade até 01/08/2022</ModalValidity>
           <CodeArea>
-            <Code>80LOREM2022s</Code>
+            <Code>{coupom.code}</Code>
           </CodeArea>
           <ModalButtonClose onPress={closeModal}>
             <AntDesign name="close" color="#000" size={30} />

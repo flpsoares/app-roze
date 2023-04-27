@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ButtonSubmit,
   ButtonSubmitText,
@@ -29,18 +29,20 @@ import {
 } from '@expo/vector-icons'
 import Modal from 'react-native-modal'
 import { useNavigate } from '../../contexts/NavigateContext'
-
-interface ItemProps {
-  id: number
-  title: string
-  name: string
-  image: string
-}
+import MissionsApi from '../../services/MissionsApi'
+import { useUser } from '../../contexts/AuthContext'
 
 export const NewMissions: React.FC = () => {
   const { openDrawerMenu } = useNavigate()
+  const { userKey } = useUser()
 
   const [isOpen, setIsOpen] = useState(false)
+
+  const [missions, setMissions] = useState<App.Mission[]>([])
+
+  useEffect(() => {
+    MissionsApi.list(userKey).then((res) => setMissions(res.data))
+  }, [])
 
   const openModal = () => {
     setIsOpen(true)
@@ -64,44 +66,6 @@ export const NewMissions: React.FC = () => {
     { label: 'Banana', value: 'banana' }
   ])
 
-  const items: ItemProps[] = [
-    {
-      id: 1,
-      title: 'Item 1',
-      name: 'Nome 1',
-      image: 'https://picsum.photos/id/1/200/300'
-    },
-    {
-      id: 2,
-      title: 'Item 2',
-      name: 'Nome 2',
-      image: 'https://picsum.photos/id/2/200/300'
-    },
-    {
-      id: 3,
-      title: 'Item 3',
-      name: 'Nome 3',
-      image: 'https://picsum.photos/id/3/200/300'
-    },
-    {
-      id: 4,
-      title: 'Item 1',
-      name: 'Nome 1',
-      image: 'https://picsum.photos/id/1/200/300'
-    },
-    {
-      id: 5,
-      title: 'Item 2',
-      name: 'Nome 2',
-      image: 'https://picsum.photos/id/2/200/300'
-    },
-    {
-      id: 6,
-      title: 'Item 3',
-      name: 'Nome 3',
-      image: 'https://picsum.photos/id/3/200/300'
-    }
-  ]
   return (
     <Container>
       <HeaderContainer>
@@ -120,13 +84,13 @@ export const NewMissions: React.FC = () => {
       </HeaderContainer>
       <Wrapper>
         <List>
-          {items.map((item, index) => {
+          {missions.map((item, index) => {
             return (
               <NewMissionsListItem
                 id={item.id}
-                image={item.image}
+                image={item.img}
                 name={item.name}
-                title={item.title}
+                title={item.store}
                 key={index}
               />
             )

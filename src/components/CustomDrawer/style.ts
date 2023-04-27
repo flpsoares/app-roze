@@ -26,9 +26,14 @@ export const AvatarArea = styled.View`
 `
 
 export const Avatar = styled.Image`
-  border: 6px solid #fff;
+  /* border: 6px solid #fff; */
   width: 150px;
   height: 150px;
+  border-radius: 500px;
+`
+export const AvatarBorder = styled.View`
+  background: #fff;
+  padding: 8px;
   border-radius: 500px;
 `
 

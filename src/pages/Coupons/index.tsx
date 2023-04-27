@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, List, ScrollableContainer } from './style'
 import { Header } from '../../components/Header'
 import Modal from 'react-native-modal'
 import { AntDesign } from '@expo/vector-icons'
 import { DetailItem } from '../../components/layout/Coupons/DetailItem'
+import CouponsApi from '../../services/CouponsApi'
+import { useUser } from '../../contexts/AuthContext'
 
 export const Coupons: React.FC = () => {
+  const { userKey } = useUser()
+
+  const [coupons, setCoupons] = useState<App.Coupom[]>([])
+
+  useEffect(() => {
+    CouponsApi.list(userKey).then((res) => {
+      setCoupons(res.data)
+    })
+  }, [])
+
   return (
     <ScrollableContainer
       showsVerticalScrollIndicator={true}
@@ -14,10 +26,19 @@ export const Coupons: React.FC = () => {
       <Container>
         <Header title="Meus Cupons" />
         <List>
-          <DetailItem />
-          <DetailItem />
-          <DetailItem />
-          <DetailItem />
+          {coupons.map((c, index) => {
+            return (
+              <DetailItem
+                key={index}
+                code={c.code}
+                id={c.id}
+                img={c.img}
+                name={c.name}
+                status={c.status}
+                store={c.store}
+              />
+            )
+          })}
         </List>
       </Container>
     </ScrollableContainer>
