@@ -13,7 +13,7 @@ import {
 } from './style'
 import { useNavigate } from '../../contexts/NavigateContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useAuth } from '../../contexts/AuthContext'
+import { useUser } from '../../contexts/AuthContext'
 
 export const CustomDrawer: React.FC = () => {
   const {
@@ -23,12 +23,12 @@ export const CustomDrawer: React.FC = () => {
     navigateToLogin
   } = useNavigate()
 
-  const { setHasUser } = useAuth()
+  const { setHasUser, setUserKey } = useUser()
 
   const logOut = () => {
     AsyncStorage.removeItem('key')
-    navigateToLogin()
     setHasUser(false)
+    setUserKey('')
   }
 
   return (

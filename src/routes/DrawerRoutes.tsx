@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 
 import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -8,11 +8,36 @@ import { Routes } from './Routes'
 import { Support } from '../pages/Support'
 import { Missions } from '../pages/Missions'
 import { MissionsStackRoutes } from './MissionsStackRoutes'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import AuthApi from '../services/AuthApi'
+import { useUser } from '../contexts/AuthContext'
 
 const Drawer = createDrawerNavigator()
 
 export const DrawerRoutes: React.FC = () => {
+  const { setUserKey } = useUser()
+
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    async function exec() {
+      const storedKey = await AsyncStorage.getItem('key')
+      if (storedKey !== null) {
+        AuthApi.checkToken(storedKey)
+          .then((res) => {
+            console.log(res.data.text)
+            setUserKey(storedKey)
+          })
+          .catch((e) => {
+            console.log(e.response.data.error)
+          })
+      }
+    }
+
+    exec().finally(() => {
+      setIsLoading(false)
+    })
+  }, [])
 
   if (isLoading) {
     return (

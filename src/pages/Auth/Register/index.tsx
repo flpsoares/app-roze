@@ -109,7 +109,7 @@ export const Register = () => {
   const handleSubmit = () => {
     const birth = birthDate.replace(/^(\d{2})\/(\d{2})\/(\d{4})$/, '$3-$2-$1')
 
-    const data: App.Register = {
+    const reqData: App.Register = {
       name,
       email,
       birth,
@@ -122,7 +122,7 @@ export const Register = () => {
       pwd: password
     }
 
-    AuthApi.register(data)
+    AuthApi.register(reqData)
       .then((res) => {
         Alert.alert('Aviso', res.data.text)
         navigateToLogin()

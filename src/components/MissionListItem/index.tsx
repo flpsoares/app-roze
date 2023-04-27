@@ -12,11 +12,11 @@ interface MissionListItemProps {
   status: string
 }
 
-export const MissionListItem: React.FC<MissionListItemProps> = ({
+export const MissionListItem: React.FC<App.Mission> = ({
   id,
-  image,
-  title,
   name,
+  store,
+  img,
   status
 }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,13 +24,13 @@ export const MissionListItem: React.FC<MissionListItemProps> = ({
   return (
     <Container>
       <Left>
-        <Image source={{ uri: image }} />
+        <Image source={{ uri: img }} />
         <Info>
-          <Title>{title}</Title>
+          <Title>{store}</Title>
           <Name>{name}</Name>
         </Info>
       </Left>
-      <Status status={status}>{status}</Status>
+      {status && <Status status={status}>{status}</Status>}
       <Menu>
         <Entypo
           onPress={() => setIsOpen(!isOpen)}

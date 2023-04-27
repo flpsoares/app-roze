@@ -23,12 +23,12 @@ import {
 import { useNavigate } from '../../../contexts/NavigateContext'
 import AuthApi from '../../../services/AuthApi'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useAuth } from '../../../contexts/AuthContext'
+import { useUser } from '../../../contexts/AuthContext'
 
 export const Login = () => {
   const { navigateToRegister, navigateToForgotPassword, navigateToDrawer } =
     useNavigate()
-  const { verifyIsHasUser, hasUser, setHasUser } = useAuth()
+  const { setHasUser, setUserKey } = useUser()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -36,10 +36,9 @@ export const Login = () => {
   const handleSubmit = () => {
     AuthApi.login({ email, pwd: password })
       .then(async (res) => {
-        Alert.alert('Aviso', 'Usuário logou')
-        navigateToDrawer()
+        await AsyncStorage.setItem('key', res.data.key)
         setHasUser(true)
-        // await AsyncStorage.setItem('key', res.data.key)
+        setUserKey(res.data.key)
       })
       .catch((e: any) => {
         Alert.alert('Erro', e.response.data.error)
@@ -59,7 +58,7 @@ export const Login = () => {
           <Banner source={require('../../../../public/assets/Auth/banner.png')} />
           <Logo />
           <Content>
-            <Title onPress={() => console.log(hasUser)}>Login</Title>
+            <Title>Login</Title>
             <InputItem>
               <InputTitle>E-mail:</InputTitle>
               <Input

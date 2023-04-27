@@ -29,6 +29,10 @@ class AuthApi {
   public async login({ email, pwd }) {
     return api.post('/actions/login_app', { email, pwd })
   }
+
+  public async checkToken(key: string) {
+    return api.post('/app/home', {}, { headers: { Authorization: key } })
+  }
 }
 
 export default new AuthApi()

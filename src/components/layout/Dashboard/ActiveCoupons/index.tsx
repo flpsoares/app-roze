@@ -4,6 +4,7 @@ import { Container, Image, SubTitle, Title, TitleArea, Wrapper } from './style'
 import { AntDesign } from '@expo/vector-icons'
 import { primary } from '../../../../styles/globalVar'
 import { useNavigate } from '../../../../contexts/NavigateContext'
+import { useUser } from '../../../../contexts/AuthContext'
 
 export const ActiveCoupons: React.FC = () => {
   const { navigateToCoupons } = useNavigate()

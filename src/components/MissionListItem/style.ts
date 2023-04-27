@@ -29,11 +29,11 @@ export const Title = styled.Text`
 export const Name = styled.Text`
   font-size: 18px;
   color: ${primary};
+  margin-left: 0;
 `
 
 export const Info = styled.View`
   justify-content: space-around;
-  align-items: center;
   height: 80px;
 `
 

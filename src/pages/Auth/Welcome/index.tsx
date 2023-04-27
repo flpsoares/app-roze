@@ -22,7 +22,7 @@ export const Welcome = () => {
       <Banner source={require('../../../../public/assets/Auth/banner.png')} />
       <Logo />
       <Content>
-        <Title>Bem vindo ao Roze</Title>
+        <Title>Bem vindo ao Rozee</Title>
         <SubTitle>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum
         </SubTitle>

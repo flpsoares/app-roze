@@ -5,50 +5,38 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
-interface AuthContextData {
-  hasUser: boolean | undefined
+interface UserContextData {
+  hasUser: boolean
   userKey: string
   setUserKey: React.Dispatch<React.SetStateAction<string>>
   setHasUser: React.Dispatch<React.SetStateAction<boolean>>
-  verifyIsHasUser: () => Promise<void>
 }
 
-interface AuthProviderProps {
+interface UserProviderProps {
   children: ReactNode
 }
 
-export const AuthContext = createContext({} as AuthContextData)
+export const UserContext = createContext({} as UserContextData)
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const UserProvider = ({ children }: UserProviderProps) => {
   const [userKey, setUserKey] = useState('')
   const [hasUser, setHasUser] = useState<boolean>()
 
-  const verifyIsHasUser = async () => {
-    const key = await AsyncStorage.getItem('key')
-
-    if (key !== null) {
-      setUserKey(key)
-      setHasUser(true)
-    }
-  }
-
   return (
-    <AuthContext.Provider
+    <UserContext.Provider
       value={{
         hasUser,
         setHasUser,
         setUserKey,
-        userKey,
-        verifyIsHasUser
+        userKey
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   )
 }
 
-export const useAuth = () => {
-  return useContext(AuthContext)
+export const useUser = () => {
+  return useContext(UserContext)
 }
