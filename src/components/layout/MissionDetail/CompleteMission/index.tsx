@@ -3,13 +3,14 @@ import { Container, Image, SubTitle, Title, TitleArea, Wrapper } from './style'
 
 import { AntDesign } from '@expo/vector-icons'
 import { primary } from '../../../../styles/globalVar'
-import { useNavigate } from '../../../../contexts/NavigateContext'
 
-export const CompleteMission: React.FC = () => {
-  const { openDrawerMenu } = useNavigate()
+interface CompleteMissionProps {
+  onPress: () => void
+}
 
+export const CompleteMission: React.FC<CompleteMissionProps> = ({ onPress }) => {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <Image
         source={require('../../../../../public/assets/Mission/complete-mission.png')}
       />

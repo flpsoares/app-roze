@@ -79,10 +79,10 @@ export const MissionDetail: React.FC = () => {
         <Wrapper>
           <Discount text={mission?.base_award} />
           <Description text={mission?.desc} />
-          <CompleteMission />
-          <ButtonObjective onPress={() => setModalIsOpen(true)}>
+          <CompleteMission onPress={() => setModalIsOpen(true)} />
+          {/* <ButtonObjective>
             <ButtonObjectiveText>Objetivo da missão</ButtonObjectiveText>
-          </ButtonObjective>
+          </ButtonObjective> */}
           {/* <Numbers /> */}
         </Wrapper>
         <Modal

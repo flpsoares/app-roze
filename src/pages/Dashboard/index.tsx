@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import { ActiveCoupons } from '../../components/layout/Dashboard/ActiveCoupons'
 import { NewMission } from '../../components/layout/Dashboard/NewMission'
 import { Container, ScrollableContainer } from './style'
 import { MissionsInProgress } from '../../components/layout/Dashboard/MissionsInProgress'
+import CouponsApi from '../../services/CouponsApi'
+import { useUser } from '../../contexts/AuthContext'
 
 export const Dashboard: React.FC = () => {
+  const { userKey } = useUser()
+
+  const [coupons, setCoupons] = useState<App.Coupom[]>([])
+
+  useEffect(() => {
+    CouponsApi.list(userKey).then((res) => {
+      setCoupons(res.data)
+    })
+  }, [])
+
   return (
     <ScrollableContainer
       showsVerticalScrollIndicator={true}
@@ -13,7 +25,7 @@ export const Dashboard: React.FC = () => {
     >
       <Container>
         <Header title="Bem vindo usuário" />
-        <ActiveCoupons />
+        {coupons.length > 0 && <ActiveCoupons quantity={coupons.length} />}
         <NewMission />
         <MissionsInProgress />
       </Container>

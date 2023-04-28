@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ButtonSeeAll,
   ButtonSeeAllText,
@@ -17,9 +17,11 @@ import {
   Title
 } from './style'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import { Dimensions, Text } from 'react-native'
+import { Alert, Dimensions, Text } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import { useNavigate } from '../../../../contexts/NavigateContext'
+import MissionsApi from '../../../../services/MissionsApi'
+import { useUser } from '../../../../contexts/AuthContext'
 
 interface ItemProps {
   id: number
@@ -28,35 +30,32 @@ interface ItemProps {
 }
 
 export const NewMission: React.FC = () => {
+  const { userKey } = useUser()
+
   const [activeIndex, setActiveIndex] = useState(0)
   const screenWidth = Dimensions.get('window').width
 
   const { navigateToNewMissions } = useNavigate()
 
-  const items: ItemProps[] = [
-    {
-      id: 1,
-      title: 'Item 1',
-      image: 'https://picsum.photos/id/1/200/300'
-    },
-    {
-      id: 2,
-      title: 'Item 2',
-      image: 'https://picsum.photos/id/2/200/300'
-    },
-    {
-      id: 3,
-      title: 'Item 3',
-      image: 'https://picsum.photos/id/3/200/300'
-    }
-  ]
+  const [missions, setMissions] = useState<App.Mission[]>([])
 
-  const renderItem = ({ item }: { item: ItemProps }) => (
+  const participate = (id: number) => {
+    MissionsApi.sendParticipate(userKey, id).then((res) => {
+      Alert.alert('Sucesso', res.data.text)
+      console.log(res.data)
+    })
+  }
+
+  useEffect(() => {
+    MissionsApi.list(userKey).then((res) => setMissions(res.data.slice(0, 6)))
+  }, [])
+
+  const renderItem = ({ item }: { item: App.Mission }) => (
     <ItemContainer>
-      <ItemImage source={{ uri: item.image }} />
-      <ItemTitle>{item.title}</ItemTitle>
-      <ItemSubtitle>Restaurante xxxx</ItemSubtitle>
-      <ItemButton>
+      <ItemImage source={{ uri: item.img }} />
+      <ItemTitle>{item.name}</ItemTitle>
+      <ItemSubtitle>{item.store}</ItemSubtitle>
+      <ItemButton onPress={() => participate(item.id)}>
         <ItemButtonText>
           Participar
           <Icon name="right" size={14} />
@@ -67,7 +66,7 @@ export const NewMission: React.FC = () => {
 
   const renderPagination = () => (
     <PaginationContainer>
-      {items.map((_, index) => (
+      {missions.map((_, index) => (
         <PaginationDot key={index} active={index === activeIndex} />
       ))}
     </PaginationContainer>
@@ -83,7 +82,7 @@ export const NewMission: React.FC = () => {
       </Header>
       <CarouselContainer>
         <Carousel
-          data={items}
+          data={missions}
           renderItem={renderItem}
           sliderWidth={Dimensions.get('window').width - 70}
           itemWidth={300}

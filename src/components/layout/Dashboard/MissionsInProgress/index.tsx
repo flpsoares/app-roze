@@ -14,19 +14,8 @@ import {
   List,
   Title
 } from './style'
-import Carousel, { Pagination } from 'react-native-snap-carousel'
-import { Dimensions, Text, FlatList } from 'react-native'
-import { FontAwesome } from '@expo/vector-icons'
 import MissionsApi from '../../../../services/MissionsApi'
 import { useUser } from '../../../../contexts/AuthContext'
-
-interface ItemProps {
-  id: number
-  title: string
-  name: string
-  image: string
-  status: string
-}
 
 export const MissionsInProgress: React.FC = () => {
   const { userKey } = useUser()
@@ -34,7 +23,9 @@ export const MissionsInProgress: React.FC = () => {
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
 
   useEffect(() => {
-    MissionsApi.listMissionsInProgress(userKey).then((res) => setMissions(res.data))
+    MissionsApi.listMissionsInProgress(userKey).then((res) =>
+      setMissions(res.data.slice(0, 6))
+    )
   }, [])
 
   // const renderItem = ({ item }: { item: ItemProps }) => (
