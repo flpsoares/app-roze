@@ -10,5 +10,6 @@ declare namespace App {
     state: string
     social_link: string
     social_link_2: string
+    img: File
   }
 }

@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { Logo } from '../../../components/Logo'
-import { KeyboardAvoidingView, Platform, Alert } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+  View,
+  ActivityIndicator
+} from 'react-native'
 import {
   Banner,
   ButtonArea,
@@ -30,10 +36,13 @@ export const Login = () => {
     useNavigate()
   const { setHasUser, setUserKey } = useUser()
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = () => {
+    setIsLoading(true)
     AuthApi.login({ email, pwd: password })
       .then(async (res) => {
         await AsyncStorage.setItem('key', res.data.key)
@@ -43,6 +52,7 @@ export const Login = () => {
       .catch((e: any) => {
         Alert.alert('Erro', e.response.data.error)
       })
+      .finally(() => setIsLoading(false))
   }
 
   return (
@@ -84,9 +94,18 @@ export const Login = () => {
                 <FormButtonText>Esqueci a Senha</FormButtonText>
               </FormButton>
             </ButtonArea>
-            <SubmitButton onPress={handleSubmit}>
-              <SubmitButtonText>Entrar</SubmitButtonText>
-            </SubmitButton>
+            {isLoading ? (
+              <View
+                style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+              >
+                <ActivityIndicator size="large" />
+              </View>
+            ) : (
+              <SubmitButton onPress={handleSubmit}>
+                <SubmitButtonText>Entrar</SubmitButtonText>
+              </SubmitButton>
+            )}
+
             <RegisterArea>
               <RegisterText>Não é cadastrado?</RegisterText>
               <RegisterButton onPress={navigateToRegister}>

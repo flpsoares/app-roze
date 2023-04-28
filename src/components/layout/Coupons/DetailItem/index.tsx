@@ -64,10 +64,10 @@ export const DetailItem: React.FC<App.Coupom> = (coupom) => {
       <Line></Line>
       <ItemBottom>
         <ItemLeft>
-          <LineInfo>
+          {/* <LineInfo>
             <ExtraText>10%</ExtraText>
             <Discount>De desconto</Discount>
-          </LineInfo>
+          </LineInfo> */}
           <Validity>Validade até 01/09/2022</Validity>
           <ButtonDetail onPress={toggleDropdown}>
             <ButtonDetailText>
@@ -91,8 +91,7 @@ export const DetailItem: React.FC<App.Coupom> = (coupom) => {
           </ModalAvatarItem>
           <ModalTitle>{coupom.store}</ModalTitle>
           <LineInfo>
-            <ModalDiscountNumber>80%</ModalDiscountNumber>
-            <ModalDiscountText>De desconto</ModalDiscountText>
+            <ModalDiscountNumber>{coupom.award}</ModalDiscountNumber>
           </LineInfo>
           <ModalValidity>Validade até 01/08/2022</ModalValidity>
           <CodeArea>

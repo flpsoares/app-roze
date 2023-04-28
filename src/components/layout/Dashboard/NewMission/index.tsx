@@ -48,7 +48,7 @@ export const NewMission: React.FC = () => {
   }
   useEffect(() => {
     MissionsApi.list(userKey).then((res) => setMissions(res.data.slice(0, 6)))
-  }, [isFocused])
+  }, [])
 
   const renderItem = ({ item }: { item: App.Mission }) => (
     <ItemContainer>

@@ -23,11 +23,11 @@ export const Image = styled.Image`
 `
 
 export const Title = styled.Text`
-  font-size: 18px;
+  font-size: 14px;
   color: #fff;
 `
 export const Name = styled.Text`
-  font-size: 18px;
+  font-size: 12px;
   color: ${primary};
   margin-left: 0;
 `

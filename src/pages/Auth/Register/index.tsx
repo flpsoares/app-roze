@@ -27,7 +27,6 @@ import {
   Title
 } from './style'
 import AuthApi from '../../../services/AuthApi'
-import { AxiosError, AxiosResponse } from 'axios'
 import { useNavigate } from '../../../contexts/NavigateContext'
 
 export const Register = () => {
@@ -45,6 +44,7 @@ export const Register = () => {
   const [state, setState] = useState('')
   const [popularSocialMedia, setPopularSocialMedia] = useState('')
   const [socialMedia, setSocialMedia] = useState('')
+  const [imageFile, setImageFile] = useState<File>()
 
   const [step, setStep] = useState(1)
 
@@ -102,6 +102,11 @@ export const Register = () => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri)
+      const response = await fetch(result.uri)
+      const blob = await response.blob()
+      const file = new File([blob], 'image.png', { type: blob.type })
+      console.log(file instanceof File)
+      setImageFile(file)
     }
   }
 
@@ -118,16 +123,19 @@ export const Register = () => {
       tel: celphone,
       social_link: popularSocialMedia,
       social_link_2: socialMedia,
-      pwd: password
+      pwd: password,
+      img: imageFile
     }
 
     AuthApi.register(reqData)
       .then((res) => {
-        Alert.alert('Aviso', res.data.text)
+        // Alert.alert('Aviso', res.data.text)
         navigateToLogin()
       })
       .catch((e: any) => {
         Alert.alert('Erro', e.response.data.error)
+        console.log(e.response)
+        console.log('caiu no catch')
       })
   }
 

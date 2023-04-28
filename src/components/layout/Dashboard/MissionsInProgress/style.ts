@@ -54,11 +54,11 @@ export const ItemImage = styled.Image`
 `
 
 export const ItemTitle = styled.Text`
-  font-size: 18px;
+  font-size: 14px;
   color: #fff;
 `
 export const ItemName = styled.Text`
-  font-size: 18px;
+  font-size: 12px;
   color: ${primary};
 `
 

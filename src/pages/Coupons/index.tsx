@@ -18,6 +18,7 @@ export const Coupons: React.FC = () => {
   useEffect(() => {
     CouponsApi.list(userKey).then((res) => {
       setCoupons(res.data)
+      console.log(res.data)
     })
   }, [isFocused])
 
@@ -34,6 +35,7 @@ export const Coupons: React.FC = () => {
               <DetailItem
                 key={index}
                 code={c.code}
+                award={c.award}
                 id={c.id}
                 img={c.img}
                 name={c.name}

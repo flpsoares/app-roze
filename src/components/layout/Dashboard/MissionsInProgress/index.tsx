@@ -17,9 +17,11 @@ import {
 import MissionsApi from '../../../../services/MissionsApi'
 import { useUser } from '../../../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
+import { useNavigate } from '../../../../contexts/NavigateContext'
 
 export const MissionsInProgress: React.FC = () => {
   const { userKey } = useUser()
+  const { navigateToMissionsStackRoutes } = useNavigate()
 
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
 
@@ -29,7 +31,7 @@ export const MissionsInProgress: React.FC = () => {
     MissionsApi.listMissionsInProgress(userKey).then((res) =>
       setMissions(res.data.slice(0, 6))
     )
-  }, [isFocused])
+  }, [])
 
   // const renderItem = ({ item }: { item: ItemProps }) => (
   //   <ItemContainer>
@@ -48,7 +50,7 @@ export const MissionsInProgress: React.FC = () => {
     <Container>
       <Header>
         <Title>Missões em andamento</Title>
-        <ButtonSeeAll>
+        <ButtonSeeAll onPress={navigateToMissionsStackRoutes}>
           <ButtonSeeAllText>Ver tudo</ButtonSeeAllText>
         </ButtonSeeAll>
       </Header>

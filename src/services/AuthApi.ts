@@ -4,6 +4,8 @@ import md5 from 'md5'
 
 class AuthApi {
   public async register(data: App.Register) {
+    const apiUrl = 'https://digitalott.host/roze/actions/register_app'
+
     const fd = new FormData()
     fd.append('name', data.name)
     fd.append('email', data.email)
@@ -15,14 +17,37 @@ class AuthApi {
     fd.append('state', data.state)
     fd.append('social_link', data.social_link)
     fd.append('social_link_2', data.social_link_2)
+    fd.append('img', data.img)
 
-    return api
-      .post('/actions/register_app', fd, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+    const options = {
+      method: 'POST',
+      body: fd,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+
+    return fetch(apiUrl, options)
+      .then((res) => res.json())
+      .then((res) => res.text)
+      .catch((e) => {
+        console.log(e)
+        Alert.alert('Erro', 'Erro desconhecido')
       })
-      .catch((e: any) => {
-        Alert.alert('Erro', e.response.data.error)
-      })
+
+    // return api
+    //   .post(
+    //     '/actions/register_app',
+    //     { fd },
+    //     {
+    //       headers: { 'Content-Type': 'multipart/form-data' }
+    //     }
+    //   )
+    //   .catch((e: any) => {
+    //     Alert.alert('Erro', e.response.data.error)
+    //     console.log('catch dentro do services')
+    //   })
   }
 
   public async login({ email, pwd }) {

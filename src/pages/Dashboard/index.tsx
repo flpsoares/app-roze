@@ -18,7 +18,7 @@ export const Dashboard: React.FC = () => {
     CouponsApi.list(userKey).then((res) => {
       setCoupons(res.data)
     })
-  }, [isFocused])
+  }, [])
 
   return (
     <ScrollableContainer
