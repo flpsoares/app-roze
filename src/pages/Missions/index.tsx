@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { Button, ButtonText, ButtonsArea, Container, Title, Wrapper } from './style'
 import { Header } from '../../components/Header'
 import { MissionListItem } from '../../components/MissionListItem'
@@ -6,11 +6,13 @@ import { FlatList } from 'react-native'
 import MissionsApi from '../../services/MissionsApi'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useUser } from '../../contexts/AuthContext'
+import { useIsFocused } from '@react-navigation/native'
 
 export const Missions: React.FC = () => {
   const { userKey } = useUser()
 
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
+  const isFocused = useIsFocused()
 
   const [isPending, setIsPending] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
@@ -48,7 +50,7 @@ export const Missions: React.FC = () => {
 
   useEffect(() => {
     MissionsApi.listMissionsInProgress(userKey).then((res) => setMissions(res.data))
-  }, [])
+  }, [isFocused])
 
   return (
     <Container>

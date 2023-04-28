@@ -22,6 +22,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import { useNavigate } from '../../../../contexts/NavigateContext'
 import MissionsApi from '../../../../services/MissionsApi'
 import { useUser } from '../../../../contexts/AuthContext'
+import { useIsFocused } from '@react-navigation/native'
 
 interface ItemProps {
   id: number
@@ -38,17 +39,16 @@ export const NewMission: React.FC = () => {
   const { navigateToNewMissions } = useNavigate()
 
   const [missions, setMissions] = useState<App.Mission[]>([])
+  const isFocused = useIsFocused()
 
   const participate = (id: number) => {
     MissionsApi.sendParticipate(userKey, id).then((res) => {
       Alert.alert('Sucesso', res.data.text)
-      console.log(res.data)
     })
   }
-
   useEffect(() => {
     MissionsApi.list(userKey).then((res) => setMissions(res.data.slice(0, 6)))
-  }, [])
+  }, [isFocused])
 
   const renderItem = ({ item }: { item: App.Mission }) => (
     <ItemContainer>

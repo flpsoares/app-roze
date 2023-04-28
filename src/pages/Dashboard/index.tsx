@@ -6,17 +6,19 @@ import { Container, ScrollableContainer } from './style'
 import { MissionsInProgress } from '../../components/layout/Dashboard/MissionsInProgress'
 import CouponsApi from '../../services/CouponsApi'
 import { useUser } from '../../contexts/AuthContext'
+import { useIsFocused } from '@react-navigation/native'
 
 export const Dashboard: React.FC = () => {
   const { userKey } = useUser()
 
   const [coupons, setCoupons] = useState<App.Coupom[]>([])
+  const isFocused = useIsFocused()
 
   useEffect(() => {
     CouponsApi.list(userKey).then((res) => {
       setCoupons(res.data)
     })
-  }, [])
+  }, [isFocused])
 
   return (
     <ScrollableContainer

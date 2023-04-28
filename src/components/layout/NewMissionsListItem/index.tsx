@@ -30,7 +30,6 @@ export const NewMissionsListItem: React.FC<NewMissionsListItemProps> = ({
   const participate = () => {
     MissionsApi.sendParticipate(userKey, id).then((res) => {
       Alert.alert('Sucesso', res.data.text)
-      console.log(res.data)
     })
   }
 

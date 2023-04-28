@@ -16,17 +16,20 @@ import {
 } from './style'
 import MissionsApi from '../../../../services/MissionsApi'
 import { useUser } from '../../../../contexts/AuthContext'
+import { useIsFocused } from '@react-navigation/native'
 
 export const MissionsInProgress: React.FC = () => {
   const { userKey } = useUser()
 
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
 
+  const isFocused = useIsFocused()
+
   useEffect(() => {
     MissionsApi.listMissionsInProgress(userKey).then((res) =>
       setMissions(res.data.slice(0, 6))
     )
-  }, [])
+  }, [isFocused])
 
   // const renderItem = ({ item }: { item: ItemProps }) => (
   //   <ItemContainer>

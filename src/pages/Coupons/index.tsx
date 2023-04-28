@@ -6,17 +6,20 @@ import { AntDesign } from '@expo/vector-icons'
 import { DetailItem } from '../../components/layout/Coupons/DetailItem'
 import CouponsApi from '../../services/CouponsApi'
 import { useUser } from '../../contexts/AuthContext'
+import { useIsFocused } from '@react-navigation/native'
 
 export const Coupons: React.FC = () => {
   const { userKey } = useUser()
 
   const [coupons, setCoupons] = useState<App.Coupom[]>([])
 
+  const isFocused = useIsFocused()
+
   useEffect(() => {
     CouponsApi.list(userKey).then((res) => {
       setCoupons(res.data)
     })
-  }, [])
+  }, [isFocused])
 
   return (
     <ScrollableContainer

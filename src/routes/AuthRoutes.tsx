@@ -48,7 +48,6 @@ export const AuthRoutes: React.FC = () => {
   }, [])
 
   if (isLoading) {
-    console.log('isLoading')
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
@@ -57,7 +56,6 @@ export const AuthRoutes: React.FC = () => {
   }
 
   if (!isLoading && hasUser === true) {
-    console.log('hasUser true')
     return (
       <Drawer.Navigator
         screenOptions={{ drawerPosition: 'right', headerShown: false }}
@@ -71,7 +69,6 @@ export const AuthRoutes: React.FC = () => {
   }
 
   if (!isLoading && hasUser === false) {
-    console.log('hasUser false')
     return (
       <Stack.Navigator>
         <Stack.Screen
