@@ -12,26 +12,38 @@ export const Missions: React.FC = () => {
 
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
 
-  const [isPending, setIsPending] = useState(true)
+  const [isPending, setIsPending] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
   const [isReject, setIsReject] = useState(false)
 
   const activePending = () => {
-    setIsPending(true)
+    if (isPending) {
+      setIsPending(false)
+    } else {
+      setIsPending(true)
+    }
     setIsApproved(false)
     setIsReject(false)
   }
 
   const activeApproved = () => {
     setIsPending(false)
-    setIsApproved(true)
+    if (isApproved) {
+      setIsApproved(false)
+    } else {
+      setIsApproved(true)
+    }
     setIsReject(false)
   }
 
   const activeReject = () => {
     setIsPending(false)
     setIsApproved(false)
-    setIsReject(true)
+    if (isReject) {
+      setIsReject(false)
+    } else {
+      setIsReject(true)
+    }
   }
 
   useEffect(() => {
@@ -54,19 +66,29 @@ export const Missions: React.FC = () => {
       </ButtonsArea>
       <Wrapper>
         <Title>Missões em andamento</Title>
-        {missions?.map((item, index) => {
-          return (
-            <MissionListItem
-              id={item.id}
-              id_camp={item.id_camp}
-              img={item.img}
-              name={item.name}
-              status={item.status}
-              store={item.store}
-              key={index}
-            />
-          )
-        })}
+        {missions
+          ?.filter((m) => {
+            if (isPending) {
+              return m.status === 'pending'
+            } else if (isApproved) {
+              return m.status === 'approved'
+            } else if (isReject) {
+              return m.status === 'reject'
+            } else return m
+          })
+          .map((item, index) => {
+            return (
+              <MissionListItem
+                id={item.id}
+                id_camp={item.id_camp}
+                img={item.img}
+                name={item.name}
+                status={item.status}
+                store={item.store}
+                key={index}
+              />
+            )
+          })}
       </Wrapper>
     </Container>
   )

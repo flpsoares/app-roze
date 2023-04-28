@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ButtonSeeAll,
   ButtonSeeAllText,
@@ -17,6 +17,8 @@ import {
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { Dimensions, Text, FlatList } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
+import MissionsApi from '../../../../services/MissionsApi'
+import { useUser } from '../../../../contexts/AuthContext'
 
 interface ItemProps {
   id: number
@@ -27,84 +29,26 @@ interface ItemProps {
 }
 
 export const MissionsInProgress: React.FC = () => {
-  const items: ItemProps[] = [
-    {
-      id: 1,
-      title: 'Item 1',
-      name: 'Nome 1',
-      status: 'Aceita',
-      image: 'https://picsum.photos/id/1/200/300'
-    },
-    {
-      id: 2,
-      title: 'Item 2',
-      name: 'Nome 2',
-      status: 'Pendente',
-      image: 'https://picsum.photos/id/2/200/300'
-    },
-    {
-      id: 3,
-      title: 'Item 3',
-      name: 'Nome 3',
-      status: 'Recusada',
-      image: 'https://picsum.photos/id/3/200/300'
-    },
-    {
-      id: 4,
-      title: 'Item 1',
-      name: 'Nome 1',
-      status: 'Aceita',
-      image: 'https://picsum.photos/id/1/200/300'
-    },
-    {
-      id: 5,
-      title: 'Item 2',
-      name: 'Nome 2',
-      status: 'Pendente',
-      image: 'https://picsum.photos/id/2/200/300'
-    },
-    {
-      id: 6,
-      title: 'Item 3',
-      name: 'Nome 3',
-      status: 'Recusada',
-      image: 'https://picsum.photos/id/3/200/300'
-    },
-    {
-      id: 7,
-      title: 'Item 1',
-      name: 'Nome 1',
-      status: 'Aceita',
-      image: 'https://picsum.photos/id/1/200/300'
-    },
-    {
-      id: 8,
-      title: 'Item 2',
-      name: 'Nome 2',
-      status: 'Pendente',
-      image: 'https://picsum.photos/id/2/200/300'
-    },
-    {
-      id: 9,
-      title: 'Item 3',
-      name: 'Nome 3',
-      status: 'Recusada',
-      image: 'https://picsum.photos/id/3/200/300'
-    }
-  ]
+  const { userKey } = useUser()
 
-  const renderItem = ({ item }: { item: ItemProps }) => (
-    <ItemContainer>
-      <Left>
-        <ItemImage source={{ uri: item.image }} />
-        <ItemInfo>
-          <ItemTitle>{item.title}</ItemTitle>
-          <ItemName>{item.name}</ItemName>
-        </ItemInfo>
-      </Left>
-      <ItemStatus status={item.status}>{item.status}</ItemStatus>
-    </ItemContainer>
-  )
+  const [missions, setMissions] = useState<App.MissionInProgress[]>([])
+
+  useEffect(() => {
+    MissionsApi.listMissionsInProgress(userKey).then((res) => setMissions(res.data))
+  }, [])
+
+  // const renderItem = ({ item }: { item: ItemProps }) => (
+  //   <ItemContainer>
+  //     <Left>
+  //       <ItemImage source={{ uri: item.image }} />
+  //       <ItemInfo>
+  //         <ItemTitle>{item.title}</ItemTitle>
+  //         <ItemName>{item.name}</ItemName>
+  //       </ItemInfo>
+  //     </Left>
+  //     <ItemStatus status={item.status}>{item.status}</ItemStatus>
+  //   </ItemContainer>
+  // )
 
   return (
     <Container>
@@ -114,17 +58,28 @@ export const MissionsInProgress: React.FC = () => {
           <ButtonSeeAllText>Ver tudo</ButtonSeeAllText>
         </ButtonSeeAll>
       </Header>
-      {items.map((item, index) => {
+      {missions.map((item, index) => {
         return (
           <ItemContainer key={index}>
             <Left>
-              <ItemImage source={{ uri: item.image }} />
+              <ItemImage source={{ uri: item.img }} />
               <ItemInfo>
-                <ItemTitle>{item.title}</ItemTitle>
+                <ItemTitle>{item.store}</ItemTitle>
                 <ItemName>{item.name}</ItemName>
               </ItemInfo>
             </Left>
-            <ItemStatus status={item.status}>{item.status}</ItemStatus>
+            {item.status === 'pending' && (
+              <ItemStatus status={item.status}>Pendente</ItemStatus>
+            )}
+            {item.status === 'approved' && (
+              <ItemStatus status={item.status}>Aprovado</ItemStatus>
+            )}
+            {item.status === 'reject' && (
+              <ItemStatus status={item.status}>Rejeitado</ItemStatus>
+            )}
+            {item.status === 'work' && (
+              <ItemStatus status={item.status}>Em andamento</ItemStatus>
+            )}
           </ItemContainer>
         )
       })}

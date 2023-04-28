@@ -48,6 +48,8 @@ export const Status = styled.Text<StatusProps>`
       ? '#E48900'
       : props.status === 'approved'
       ? '#00CC52'
+      : props.status === 'work'
+      ? '#1E91B0'
       : '#E02B1D'};
 `
 

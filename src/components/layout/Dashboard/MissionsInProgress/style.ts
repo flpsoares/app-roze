@@ -64,7 +64,6 @@ export const ItemName = styled.Text`
 
 export const ItemInfo = styled.View`
   justify-content: space-around;
-  align-items: center;
   height: 100%;
 `
 
@@ -74,10 +73,12 @@ interface ItemStatusProps {
 
 export const ItemStatus = styled.Text<ItemStatusProps>`
   color: ${(props) =>
-    props.status === 'Pendente'
+    props.status === 'pending'
       ? '#E48900'
-      : props.status === 'Aceita'
+      : props.status === 'approved'
       ? '#00CC52'
+      : props.status === 'work'
+      ? '#1E91B0'
       : '#E02B1D'};
 `
 

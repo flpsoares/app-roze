@@ -22,7 +22,10 @@ export const MissionListItem: React.FC<App.MissionInProgress> = ({
           <Name>{name}</Name>
         </Info>
       </Left>
-      {status && <Status status={status}>{status}</Status>}
+      {status === 'pending' && <Status status={status}>Pendente</Status>}
+      {status === 'approved' && <Status status={status}>Aprovado</Status>}
+      {status === 'reject' && <Status status={status}>Rejeitado</Status>}
+      {status === 'work' && <Status status={status}>Em andamento</Status>}
       <Menu>
         <Entypo
           onPress={() => setIsOpen(!isOpen)}
