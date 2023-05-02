@@ -39,19 +39,6 @@ export const MissionsInProgress: React.FC = () => {
     }
   }, [userKey, isFocused])
 
-  // const renderItem = ({ item }: { item: ItemProps }) => (
-  //   <ItemContainer>
-  //     <Left>
-  //       <ItemImage source={{ uri: item.image }} />
-  //       <ItemInfo>
-  //         <ItemTitle>{item.title}</ItemTitle>
-  //         <ItemName>{item.name}</ItemName>
-  //       </ItemInfo>
-  //     </Left>
-  //     <ItemStatus status={item.status}>{item.status}</ItemStatus>
-  //   </ItemContainer>
-  // )
-
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

@@ -105,7 +105,6 @@ export const Register = () => {
       const response = await fetch(result.uri)
       const blob = await response.blob()
       const file = new File([blob], 'image.png', { type: blob.type })
-      console.log(file instanceof File)
       setImageFile(file)
     }
   }
@@ -135,7 +134,6 @@ export const Register = () => {
       .catch((e: any) => {
         Alert.alert('Erro', e.response.data.error)
         console.log(e.response)
-        console.log('caiu no catch')
       })
   }
 

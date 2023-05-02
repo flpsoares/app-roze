@@ -54,7 +54,6 @@ export const Missions: React.FC = () => {
     MissionsApi.listMissionsInProgress(userKey)
       .then((res) => {
         setMissions(res.data)
-        console.log(res.data)
       })
       .finally(() => setIsLoading(false))
   }, [isFocused])
