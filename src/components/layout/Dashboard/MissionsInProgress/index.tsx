@@ -32,7 +32,9 @@ export const MissionsInProgress: React.FC = () => {
   useEffect(() => {
     if (userKey) {
       MissionsApi.listMissionsInProgress(userKey)
-        .then((res) => setMissions(res.data.slice(0, 6)))
+        .then((res) => {
+          setMissions(res.data.slice(0, 6))
+        })
         .finally(() => setIsLoading(false))
     }
   }, [userKey, isFocused])

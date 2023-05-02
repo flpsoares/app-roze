@@ -4,6 +4,7 @@ declare namespace App {
     store: string
     name: string
     img: string
+    is_sub: boolean
     status?: string
   }
 }

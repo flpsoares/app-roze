@@ -20,7 +20,9 @@ import {
   SecondModalTitle,
   SecondModalBanner,
   SecondModalButtonClose,
-  Banner
+  Banner,
+  ButtonSubmit,
+  ButtonSubmitText
 } from './style'
 import { Header } from '../../components/Header'
 import { Discount } from '../../components/layout/MissionDetail/Discount'
@@ -62,6 +64,12 @@ export const MissionDetail: React.FC = () => {
     }
   }
 
+  const participate = () => {
+    MissionsApi.sendParticipate(userKey, route.params.id).then((res) => {
+      Alert.alert('Sucesso', res.data.text)
+    })
+  }
+
   useEffect(() => {
     MissionsApi.detail(userKey, route.params.id).then((res) => {
       setMission(res.data)
@@ -79,7 +87,14 @@ export const MissionDetail: React.FC = () => {
         <Wrapper>
           <Discount text={mission?.base_award} />
           <Description text={mission?.desc} />
-          <CompleteMission onPress={() => setModalIsOpen(true)} />
+          {mission?.is_sub ? (
+            <CompleteMission onPress={() => setModalIsOpen(true)} />
+          ) : (
+            <ButtonSubmit onPress={participate}>
+              <ButtonSubmitText>Participar</ButtonSubmitText>
+            </ButtonSubmit>
+          )}
+
           {/* <ButtonObjective>
             <ButtonObjectiveText>Objetivo da missão</ButtonObjectiveText>
           </ButtonObjective> */}

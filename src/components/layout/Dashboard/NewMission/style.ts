@@ -78,3 +78,8 @@ export const ItemButtonText = styled.Text`
 `
 
 export const Icon = styled(AntDesign)``
+
+export const ItemParticipateText = styled.Text`
+  color: #32cd32;
+  font-weight: bold;
+`

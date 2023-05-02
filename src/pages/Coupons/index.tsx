@@ -53,6 +53,7 @@ export const Coupons: React.FC = () => {
                 award={c.award}
                 id={c.id}
                 img={c.img}
+                validate={c.validate}
                 name={c.name}
                 status={c.status}
                 store={c.store}

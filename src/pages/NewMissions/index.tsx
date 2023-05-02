@@ -119,6 +119,7 @@ export const NewMissions: React.FC = () => {
                 image={item.img}
                 name={item.name}
                 title={item.store}
+                is_sub={item.is_sub}
                 key={index}
               />
             )

@@ -153,3 +153,18 @@ export const Banner = styled.Image`
   height: 300px;
   width: 100%;
 `
+
+export const ButtonSubmit = styled.TouchableOpacity`
+  background-color: ${primary};
+  padding: 4px 8px;
+  border-radius: 30px;
+
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 80%;
+`
+
+export const ButtonSubmitText = styled.Text`
+  font-size: 16px;
+`

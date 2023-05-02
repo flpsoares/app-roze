@@ -10,6 +10,7 @@ import {
   ItemButtonText,
   ItemContainer,
   ItemImage,
+  ItemParticipateText,
   ItemSubtitle,
   ItemTitle,
   PaginationContainer,
@@ -51,7 +52,9 @@ export const NewMission: React.FC = () => {
   useEffect(() => {
     if (userKey) {
       MissionsApi.list(userKey)
-        .then((res) => setMissions(res.data.slice(0, 6)))
+        .then((res) => {
+          setMissions(res.data.slice(0, 6))
+        })
         .catch((e) => {
           console.log(e.response.data)
         })
@@ -64,12 +67,16 @@ export const NewMission: React.FC = () => {
       <ItemImage source={{ uri: item.img }} />
       <ItemTitle>{item.name}</ItemTitle>
       <ItemSubtitle>{item.store}</ItemSubtitle>
-      <ItemButton onPress={() => participate(item.id)}>
-        <ItemButtonText>
-          Participar
-          <Icon name="right" size={14} />
-        </ItemButtonText>
-      </ItemButton>
+      {item.is_sub ? (
+        <ItemParticipateText>Participante</ItemParticipateText>
+      ) : (
+        <ItemButton onPress={() => participate(item.id)}>
+          <ItemButtonText>
+            Participar
+            <Icon name="right" size={14} />
+          </ItemButtonText>
+        </ItemButton>
+      )}
     </ItemContainer>
   )
 

@@ -5,6 +5,7 @@ declare namespace App {
     id_camp: string
     img: string
     name: string
+    is_sub: boolean
     store: string
   }
 }

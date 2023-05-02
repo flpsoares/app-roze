@@ -6,6 +6,7 @@ declare namespace App {
     code: string
     status: string
     award: string
+    validate: string
     img: string
   }
 }

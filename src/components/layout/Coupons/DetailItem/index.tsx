@@ -68,7 +68,7 @@ export const DetailItem: React.FC<App.Coupom> = (coupom) => {
             <ExtraText>10%</ExtraText>
             <Discount>De desconto</Discount>
           </LineInfo> */}
-          <Validity>Validade até 01/09/2022</Validity>
+          <Validity>Validade até {coupom.validate}</Validity>
           <ButtonDetail onPress={toggleDropdown}>
             <ButtonDetailText>
               Ver detalhes {dropdownIsOpen ? <Icon>↑</Icon> : <Icon>↓</Icon>}

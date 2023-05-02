@@ -19,7 +19,6 @@ export const Image = styled.Image`
 export const Title = styled.Text`
   font-size: 22px;
   color: #fff;
-  line-height: 42px;
 `
 export const Name = styled.Text`
   font-size: 18px;
@@ -43,4 +42,9 @@ export const ButtonSubmit = styled.TouchableOpacity`
 
 export const ButtonSubmitText = styled.Text`
   font-size: 16px;
+`
+
+export const ParticipateText = styled.Text`
+  color: #32cd32;
+  font-weight: bold;
 `
