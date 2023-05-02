@@ -18,20 +18,24 @@ import MissionsApi from '../../../../services/MissionsApi'
 import { useUser } from '../../../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
 import { useNavigate } from '../../../../contexts/NavigateContext'
+import { ActivityIndicator, View } from 'react-native'
+import { primary } from '../../../../styles/globalVar'
 
 export const MissionsInProgress: React.FC = () => {
   const { userKey } = useUser()
   const { navigateToMissionsStackRoutes } = useNavigate()
 
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
-
+  const [isLoading, setIsLoading] = useState(true)
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    MissionsApi.listMissionsInProgress(userKey).then((res) =>
-      setMissions(res.data.slice(0, 6))
-    )
-  }, [])
+    if (userKey) {
+      MissionsApi.listMissionsInProgress(userKey)
+        .then((res) => setMissions(res.data.slice(0, 6)))
+        .finally(() => setIsLoading(false))
+    }
+  }, [userKey, isFocused])
 
   // const renderItem = ({ item }: { item: ItemProps }) => (
   //   <ItemContainer>
@@ -45,6 +49,14 @@ export const MissionsInProgress: React.FC = () => {
   //     <ItemStatus status={item.status}>{item.status}</ItemStatus>
   //   </ItemContainer>
   // )
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator color={primary} size="large" />
+      </View>
+    )
+  }
 
   return (
     <Container>

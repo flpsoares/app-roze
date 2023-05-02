@@ -7,20 +7,35 @@ import { DetailItem } from '../../components/layout/Coupons/DetailItem'
 import CouponsApi from '../../services/CouponsApi'
 import { useUser } from '../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
+import { ActivityIndicator, View } from 'react-native'
+import { primary } from '../../styles/globalVar'
 
 export const Coupons: React.FC = () => {
   const { userKey } = useUser()
 
   const [coupons, setCoupons] = useState<App.Coupom[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    CouponsApi.list(userKey).then((res) => {
-      setCoupons(res.data)
-      console.log(res.data)
-    })
+    CouponsApi.list(userKey)
+      .then((res) => {
+        setCoupons(res.data)
+      })
+      .finally(() => setIsLoading(false))
   }, [isFocused])
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Header title="Minhas missões" />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator color={primary} size="large" />
+        </View>
+      </Container>
+    )
+  }
 
   return (
     <ScrollableContainer

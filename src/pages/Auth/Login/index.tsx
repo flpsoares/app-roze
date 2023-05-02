@@ -32,8 +32,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useUser } from '../../../contexts/AuthContext'
 
 export const Login = () => {
-  const { navigateToRegister, navigateToForgotPassword, navigateToDrawer } =
-    useNavigate()
+  const { navigateToRegister, navigateToForgotPassword } = useNavigate()
   const { setHasUser, setUserKey } = useUser()
 
   const [isLoading, setIsLoading] = useState(false)

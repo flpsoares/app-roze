@@ -7,6 +7,8 @@ import { MissionsInProgress } from '../../components/layout/Dashboard/MissionsIn
 import CouponsApi from '../../services/CouponsApi'
 import { useUser } from '../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
+import { ActivityIndicator, View } from 'react-native'
+import { primary } from '../../styles/globalVar'
 
 export const Dashboard: React.FC = () => {
   const { userKey } = useUser()
@@ -14,11 +16,17 @@ export const Dashboard: React.FC = () => {
   const [coupons, setCoupons] = useState<App.Coupom[]>([])
   const isFocused = useIsFocused()
 
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
-    CouponsApi.list(userKey).then((res) => {
-      setCoupons(res.data)
-    })
-  }, [])
+    if (userKey) {
+      CouponsApi.list(userKey)
+        .then((res) => {
+          setCoupons(res.data)
+        })
+        .finally(() => setIsLoading(false))
+    }
+  }, [userKey, isFocused])
 
   return (
     <ScrollableContainer
@@ -27,7 +35,14 @@ export const Dashboard: React.FC = () => {
     >
       <Container>
         <Header title="Bem vindo usuário" />
-        {coupons.length > 0 && <ActiveCoupons quantity={coupons.length} />}
+        {isLoading ? (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator color={primary} size="large" />
+          </View>
+        ) : (
+          <>{coupons.length > 0 && <ActiveCoupons quantity={coupons.length} />}</>
+        )}
+
         <NewMission />
         <MissionsInProgress />
       </Container>

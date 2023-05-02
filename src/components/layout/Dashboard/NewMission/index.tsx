@@ -17,12 +17,13 @@ import {
   Title
 } from './style'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import { Alert, Dimensions, Text } from 'react-native'
+import { ActivityIndicator, Alert, Dimensions, Text, View } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import { useNavigate } from '../../../../contexts/NavigateContext'
 import MissionsApi from '../../../../services/MissionsApi'
 import { useUser } from '../../../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
+import { primary } from '../../../../styles/globalVar'
 
 interface ItemProps {
   id: number
@@ -39,6 +40,7 @@ export const NewMission: React.FC = () => {
   const { navigateToNewMissions } = useNavigate()
 
   const [missions, setMissions] = useState<App.Mission[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const isFocused = useIsFocused()
 
   const participate = (id: number) => {
@@ -47,8 +49,15 @@ export const NewMission: React.FC = () => {
     })
   }
   useEffect(() => {
-    MissionsApi.list(userKey).then((res) => setMissions(res.data.slice(0, 6)))
-  }, [])
+    if (userKey) {
+      MissionsApi.list(userKey)
+        .then((res) => setMissions(res.data.slice(0, 6)))
+        .catch((e) => {
+          console.log(e.response.data)
+        })
+        .finally(() => setIsLoading(false))
+    }
+  }, [userKey, isFocused])
 
   const renderItem = ({ item }: { item: App.Mission }) => (
     <ItemContainer>
@@ -71,6 +80,14 @@ export const NewMission: React.FC = () => {
       ))}
     </PaginationContainer>
   )
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator color={primary} size="large" />
+      </View>
+    )
+  }
 
   return (
     <Container>

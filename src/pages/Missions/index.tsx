@@ -2,16 +2,18 @@ import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { Button, ButtonText, ButtonsArea, Container, Title, Wrapper } from './style'
 import { Header } from '../../components/Header'
 import { MissionListItem } from '../../components/MissionListItem'
-import { FlatList } from 'react-native'
+import { ActivityIndicator, FlatList, View } from 'react-native'
 import MissionsApi from '../../services/MissionsApi'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useUser } from '../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
+import { primary } from '../../styles/globalVar'
 
 export const Missions: React.FC = () => {
   const { userKey } = useUser()
 
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const isFocused = useIsFocused()
 
   const [isPending, setIsPending] = useState(false)
@@ -49,8 +51,21 @@ export const Missions: React.FC = () => {
   }
 
   useEffect(() => {
-    MissionsApi.listMissionsInProgress(userKey).then((res) => setMissions(res.data))
+    MissionsApi.listMissionsInProgress(userKey)
+      .then((res) => setMissions(res.data))
+      .finally(() => setIsLoading(false))
   }, [isFocused])
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Header title="Minhas missões" />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator color={primary} size="large" />
+        </View>
+      </Container>
+    )
+  }
 
   return (
     <Container>

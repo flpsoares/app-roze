@@ -19,7 +19,7 @@ import {
   Picker,
   Wrapper
 } from './style'
-import { TouchableOpacity } from 'react-native'
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
 import { NewMissionsListItem } from '../../components/layout/NewMissionsListItem'
 import {
   MaterialCommunityIcons,
@@ -31,6 +31,7 @@ import Modal from 'react-native-modal'
 import { useNavigate } from '../../contexts/NavigateContext'
 import MissionsApi from '../../services/MissionsApi'
 import { useUser } from '../../contexts/AuthContext'
+import { primary } from '../../styles/globalVar'
 
 export const NewMissions: React.FC = () => {
   const { openDrawerMenu } = useNavigate()
@@ -39,9 +40,12 @@ export const NewMissions: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const [missions, setMissions] = useState<App.Mission[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    MissionsApi.list(userKey).then((res) => setMissions(res.data))
+    MissionsApi.list(userKey)
+      .then((res) => setMissions(res.data))
+      .finally(() => setIsLoading(false))
   }, [])
 
   const openModal = () => {
@@ -65,6 +69,30 @@ export const NewMissions: React.FC = () => {
     { label: 'Apple', value: 'apple' },
     { label: 'Banana', value: 'banana' }
   ])
+
+  if (isLoading) {
+    return (
+      <Container>
+        <HeaderContainer>
+          <HeaderTitle>Novas Missões</HeaderTitle>
+          <HeaderRight>
+            <TouchableOpacity>
+              <MaterialCommunityIcons name="bell-outline" color="#fff" size={22} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={openModal}>
+              <AntDesign name="menufold" color="#fff" size={22} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={openDrawerMenu}>
+              <Feather name="menu" color="#fff" size={26} />
+            </TouchableOpacity>
+          </HeaderRight>
+        </HeaderContainer>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator color={primary} size="large" />
+        </View>
+      </Container>
+    )
+  }
 
   return (
     <Container>
