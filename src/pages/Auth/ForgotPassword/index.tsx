@@ -5,7 +5,8 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform,
-  TextInput
+  TextInput,
+  Alert
 } from 'react-native'
 import {
   Banner,
@@ -24,14 +25,61 @@ import {
 } from './style'
 import { useNavigate } from '../../../contexts/NavigateContext'
 import { primary } from '../../../styles/globalVar'
+import AuthApi from '../../../services/AuthApi'
 
 interface ForgotaPasswordProps {
   navigation: any
 }
 
 export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
-  const { navigateToRegister } = useNavigate()
-  const [step, setStep] = useState(1)
+  const { navigateToLogin } = useNavigate()
+  const [step, setStep] = useState(2)
+
+  const [email, setEmail] = useState('')
+  const [key, setKey] = useState('')
+
+  const [codeOne, setCodeOne] = useState('')
+  const [codeTwo, setCodeTwo] = useState('')
+  const [codeThree, setCodeThree] = useState('')
+  const [codeFour, setCodeFour] = useState('')
+  const [codeFive, setCodeFive] = useState('')
+  const [codeSix, setCodeSix] = useState('')
+
+  const input1Ref = useRef(null)
+  const input2Ref = useRef(null)
+  const input3Ref = useRef(null)
+  const input4Ref = useRef(null)
+  const input5Ref = useRef(null)
+  const input6Ref = useRef(null)
+
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
+  const handleTextChange = (text, ref, code) => {
+    if (code === 1) {
+      setCodeOne(text)
+    }
+    if (code === 2) {
+      setCodeTwo(text)
+    }
+    if (code === 3) {
+      setCodeThree(text)
+    }
+    if (code === 4) {
+      setCodeFour(text)
+    }
+    if (code === 5) {
+      setCodeFive(text)
+    }
+    if (code === 6) {
+      setCodeSix(text)
+    }
+    if (ref !== null) {
+      if (text.length > 0 && ref.current) {
+        ref.current.focus()
+      }
+    }
+  }
 
   useLayoutEffect(() => {
     if (step === 1) {
@@ -69,10 +117,6 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
     }
   }, [step])
 
-  const back = () => {
-    navigation.setOptions({})
-  }
-
   const next = () => {
     if (step < 3) {
       setStep(step + 1)
@@ -83,6 +127,54 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
     if (step > 1) {
       setStep(step - 1)
     }
+  }
+
+  const sendMail = () => {
+    if (email !== '') {
+      AuthApi.sendMailToReset(email)
+        .then((res) => {
+          console.log(res.data.text)
+          next()
+        })
+        .catch((e) => Alert.alert('Erro', e.response.data.error))
+    }
+  }
+
+  const sendCode = () => {
+    if (
+      codeOne !== '' &&
+      codeTwo !== '' &&
+      codeThree !== '' &&
+      codeFour !== '' &&
+      codeFive !== '' &&
+      codeSix !== ''
+    ) {
+      AuthApi.sendCodeToReset(
+        `${codeOne}${codeTwo}${codeThree}${codeFour}${codeFive}${codeSix}`,
+        'filipeseventeen1@gmail.com'
+      )
+        .then((res) => {
+          console.log(res.data.key)
+          setKey(res.data.key)
+          next()
+        })
+        .catch((e) => Alert.alert('Erro', e.response.data.error))
+    }
+  }
+
+  const handleChangePassword = () => {
+    if (password !== confirmPassword) {
+      return Alert.alert('Erro', 'As senhas devem ser iguais')
+    }
+
+    if (password.length < 6) {
+      return Alert.alert('Erro', 'A senha deve conter pelo menos 6 dígitos')
+    }
+
+    AuthApi.sendPasswordToReset(key, password, email).then((res) => {
+      Alert.alert('Sucesso', 'Senha alterada com sucesso!')
+      navigateToLogin()
+    })
   }
 
   return (
@@ -111,11 +203,13 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
               <InputItem>
                 <InputTitle>E-mail</InputTitle>
                 <Input
+                  value={email}
+                  onChangeText={(value) => setEmail(value)}
                   placeholder="E-mail@exemplo.com"
                   placeholderTextColor="#464646"
                 />
               </InputItem>
-              <SubmitButton onPress={next}>
+              <SubmitButton onPress={sendMail}>
                 <SubmitButtonText>Enviar</SubmitButtonText>
               </SubmitButton>
             </>
@@ -133,17 +227,47 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
               </Title>
               <MiniInputArea>
                 <MiniInputSeparator>
-                  <MiniInput maxLength={1} />
-                  <MiniInput maxLength={1} />
-                  <MiniInput maxLength={1} />
+                  <MiniInput
+                    maxLength={1}
+                    ref={input1Ref}
+                    value={codeOne}
+                    onChangeText={(text) => handleTextChange(text, input2Ref, 1)}
+                  />
+                  <MiniInput
+                    maxLength={1}
+                    ref={input2Ref}
+                    value={codeTwo}
+                    onChangeText={(text) => handleTextChange(text, input3Ref, 2)}
+                  />
+                  <MiniInput
+                    maxLength={1}
+                    ref={input3Ref}
+                    value={codeThree}
+                    onChangeText={(text) => handleTextChange(text, input4Ref, 3)}
+                  />
                 </MiniInputSeparator>
                 <MiniInputSeparator>
-                  <MiniInput maxLength={1} />
-                  <MiniInput maxLength={1} />
-                  <MiniInput maxLength={1} />
+                  <MiniInput
+                    maxLength={1}
+                    ref={input4Ref}
+                    value={codeFour}
+                    onChangeText={(text) => handleTextChange(text, input5Ref, 4)}
+                  />
+                  <MiniInput
+                    maxLength={1}
+                    ref={input5Ref}
+                    value={codeFive}
+                    onChangeText={(text) => handleTextChange(text, input6Ref, 5)}
+                  />
+                  <MiniInput
+                    maxLength={1}
+                    ref={input6Ref}
+                    value={codeSix}
+                    onChangeText={(text) => handleTextChange(text, null, 6)}
+                  />
                 </MiniInputSeparator>
               </MiniInputArea>
-              <SubmitButton onPress={next}>
+              <SubmitButton onPress={sendCode}>
                 <SubmitButtonText>Enviar</SubmitButtonText>
               </SubmitButton>
             </>
@@ -162,6 +286,8 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
               <InputItem>
                 <InputTitle>Nova senha:</InputTitle>
                 <Input
+                  value={password}
+                  onChangeText={(value) => setPassword(value)}
                   placeholder="********"
                   secureTextEntry
                   placeholderTextColor="#464646"
@@ -170,12 +296,14 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
               <InputItem>
                 <InputTitle>Nova senha novamente</InputTitle>
                 <Input
+                  value={confirmPassword}
+                  onChangeText={(value) => setConfirmPassword(value)}
                   placeholder="********"
                   secureTextEntry
                   placeholderTextColor="#464646"
                 />
               </InputItem>
-              <SubmitButton>
+              <SubmitButton onPress={handleChangePassword}>
                 <SubmitButtonText>Confirmar</SubmitButtonText>
               </SubmitButton>
             </>

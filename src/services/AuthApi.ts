@@ -57,6 +57,18 @@ class AuthApi {
   public async checkToken(key: string) {
     return api.post('/app/home', {}, { headers: { Authorization: key } })
   }
+
+  public async sendMailToReset(email: string) {
+    return api.post('/actions/reset_app/forgot_app', { email })
+  }
+
+  public async sendCodeToReset(code: string, email: string) {
+    return api.post('/actions/reset_app/check_code', { code, email })
+  }
+
+  public async sendPasswordToReset(key: string, pwd: string, email: string) {
+    return api.post('/actions/reset_app/reset_pwd', { pwd: md5(pwd), email, key })
+  }
 }
 
 export default new AuthApi()
