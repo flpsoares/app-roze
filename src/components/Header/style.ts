@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/native'
-import { primary } from '../../styles/globalVar'
+import { background, primary } from '../../styles/globalVar'
+import Animated from 'react-native-reanimated'
 
 interface ContainerProps {
   hasPadding?: boolean
@@ -24,4 +25,25 @@ export const Right = styled.View`
 export const Title = styled.Text`
   color: ${primary};
   font-size: 20px;
+`
+
+export const ModalOverlay = styled.Pressable`
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+`
+
+export const ModalButtonClose = styled.TouchableOpacity`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+`
+
+export const ModalContainer = styled(Animated.View)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  background-color: ${background};
+  padding-top: 60px;
 `
