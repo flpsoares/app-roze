@@ -25,13 +25,19 @@ export const Notification: React.FC = () => {
       <Icon>
         <Ionicons name="notifications-outline" color="#ccc" size={22} />
       </Icon>
-      <Title>
-        Título <Date>00/00/0000</Date>
-      </Title>
-      <Text>Lorem ipsum dolor sit amet consectetur</Text>
-      {/* {text.split('-').map((s: any, index: number) => {
+      <Content>
+        <Title>
+          Título <Date>00/00/0000</Date>
+        </Title>
+        <Text>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi ab enim
+          vero tenetur sit quidem dolores nihil commodi nam quaerat libero possimus,
+          similique, provident neque obcaecati. Possimus perspiciatis pariatur id.
+        </Text>
+        {/* {text.split('-').map((s: any, index: number) => {
         return <Content key={index}>{s}</Content>
       })} */}
+      </Content>
       <ButtonDelete>
         <AntDesign name="close" color="red" size={20} />
       </ButtonDelete>

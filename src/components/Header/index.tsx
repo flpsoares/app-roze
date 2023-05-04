@@ -3,11 +3,12 @@ import {
   Container,
   ModalButtonClose,
   ModalContainer,
+  ModalListItem,
   ModalOverlay,
   Right,
   Title
 } from './style'
-import { Modal } from 'react-native'
+import { Dimensions, Modal } from 'react-native'
 import {
   useSharedValue,
   useAnimatedStyle,
@@ -33,11 +34,11 @@ export const Header: React.FC<HeaderProps> = ({ title, hasPadding }) => {
 
   const toggleModal = () => {
     setModalVisible(!modalVisible)
-    translateX.value = withTiming(modalVisible ? 300 : 0)
+    translateX.value = withTiming(modalVisible ? Dimensions.get('window').width : 0)
   }
 
   const closeModal = () => {
-    translateX.value = withTiming(300, undefined, () => {
+    translateX.value = withTiming(Dimensions.get('window').width, undefined, () => {
       runOnJS(setModalVisible)(false)
     })
   }
@@ -60,17 +61,24 @@ export const Header: React.FC<HeaderProps> = ({ title, hasPadding }) => {
         </TouchableOpacity>
       </Right>
       <Modal visible={modalVisible} transparent>
-        <ModalOverlay onPress={closeModal}>
-          <ModalContainer style={animatedStyle}>
-            <ModalButtonClose onPress={closeModal}>
-              <AntDesign name="close" color="#fff" size={30} />
-            </ModalButtonClose>
+        <ModalContainer
+          showsVerticalScrollIndicator={true}
+          contentContainerStyle={{ flexGrow: 1 }}
+          style={animatedStyle}
+        >
+          <ModalButtonClose onPress={closeModal}>
+            <AntDesign name="close" color="#fff" size={30} />
+          </ModalButtonClose>
+          <ModalListItem>
             <Notification />
             <Notification />
             <Notification />
             <Notification />
-          </ModalContainer>
-        </ModalOverlay>
+            <Notification />
+            <Notification />
+            <Notification />
+          </ModalListItem>
+        </ModalContainer>
       </Modal>
     </Container>
   )

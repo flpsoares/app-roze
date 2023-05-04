@@ -38,12 +38,15 @@ export const ModalButtonClose = styled.TouchableOpacity`
   right: 15px;
 `
 
-export const ModalContainer = styled(Animated.View)`
+export const ModalContainer = styled(Animated.ScrollView)`
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 300px;
+  width: 100%;
   background-color: ${background};
-  padding-top: 60px;
+`
+
+export const ModalListItem = styled.View`
+  margin-top: 52px;
 `

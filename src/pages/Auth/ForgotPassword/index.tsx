@@ -33,7 +33,7 @@ interface ForgotaPasswordProps {
 
 export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
   const { navigateToLogin } = useNavigate()
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(1)
 
   const [email, setEmail] = useState('')
   const [key, setKey] = useState('')
@@ -133,10 +133,12 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
     if (email !== '') {
       AuthApi.sendMailToReset(email)
         .then((res) => {
-          console.log(res.data.text)
+          Alert.alert('Sucesso', res.data.text)
           next()
         })
         .catch((e) => Alert.alert('Erro', e.response.data.error))
+    } else {
+      return Alert.alert('Erro', 'Preencha o email antes de enviar')
     }
   }
 
@@ -151,14 +153,17 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
     ) {
       AuthApi.sendCodeToReset(
         `${codeOne}${codeTwo}${codeThree}${codeFour}${codeFive}${codeSix}`,
-        'filipeseventeen1@gmail.com'
+        email
       )
         .then((res) => {
           console.log(res.data.key)
+          Alert.alert('Sucesso', 'Código válido')
           setKey(res.data.key)
           next()
         })
         .catch((e) => Alert.alert('Erro', e.response.data.error))
+    } else {
+      return Alert.alert('Insira o código antes de enviar')
     }
   }
 
@@ -172,7 +177,7 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
     }
 
     AuthApi.sendPasswordToReset(key, password, email).then((res) => {
-      Alert.alert('Sucesso', 'Senha alterada com sucesso!')
+      Alert.alert('Sucesso', 'Senha alterada com sucesso')
       navigateToLogin()
     })
   }

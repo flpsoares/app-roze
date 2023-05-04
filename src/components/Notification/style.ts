@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   display: flex;
   flex-direction: column;
   /* background: #f3f5f2; */
@@ -8,7 +8,7 @@ export const Container = styled.View`
   width: 100%;
   margin-bottom: 12px;
   border-radius: 6px;
-  padding-left: 38px;
+  /* padding-left: 50px; */
 
   position: relative;
 `
@@ -35,10 +35,8 @@ export const Icon = styled.View`
   align-items: center;
 
   position: absolute;
-  left: 15px;
+  left: 0;
   top: 15px;
-
-  margin-left: -12px;
 `
 
 export const Title = styled.Text`
@@ -55,15 +53,14 @@ export const Text = styled.Text`
   color: #fff;
 `
 
-export const Content = styled.Text`
-  font-size: 15px;
-  max-width: 90%;
+export const Content = styled.View`
+  padding-left: 35px;
 `
 
 export const ButtonDelete = styled.TouchableOpacity`
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 5px;
+  top: 5px;
 
   transition: filter;
 
