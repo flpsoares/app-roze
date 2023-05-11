@@ -44,9 +44,9 @@ export const CustomDrawer: React.FC = () => {
         <Email>andre_exemplo@gmail.com</Email>
       </ProfileArea>
       <List>
-        <Item>
+        {/* <Item>
           <ItemText>Perfil</ItemText>
-        </Item>
+        </Item> */}
         <Item onPress={navigateToMissionsStackRoutes}>
           <ItemText>Minhas missões</ItemText>
         </Item>

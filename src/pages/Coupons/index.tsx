@@ -22,6 +22,7 @@ export const Coupons: React.FC = () => {
     CouponsApi.list(userKey)
       .then((res) => {
         setCoupons(res.data)
+        console.log(res.data)
       })
       .finally(() => setIsLoading(false))
   }, [isFocused])

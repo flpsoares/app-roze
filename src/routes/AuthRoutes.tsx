@@ -16,6 +16,7 @@ import { Routes } from './Routes'
 import { MissionsStackRoutes } from './MissionsStackRoutes'
 import { Support } from '../pages/Support'
 import { NewMissions } from '../pages/NewMissions'
+import { MissionDetail } from '../pages/MissionDetail'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -65,6 +66,7 @@ export const AuthRoutes: React.FC = () => {
       >
         <Drawer.Screen name="DashboardDrawer" component={Routes} />
         <Drawer.Screen name="NewMissions" component={NewMissions} />
+        <Drawer.Screen name="MissionDetail" component={MissionDetail} />
         <Drawer.Screen name="MissionsDrawer" component={MissionsStackRoutes} />
         <Drawer.Screen name="Support" component={Support} />
       </Drawer.Navigator>

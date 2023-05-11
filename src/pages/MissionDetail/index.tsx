@@ -74,7 +74,7 @@ export const MissionDetail: React.FC = () => {
     MissionsApi.detail(userKey, route.params.id).then((res) => {
       setMission(res.data)
     })
-  }, [])
+  }, [route.params.id])
 
   return (
     <ScrollableContainer

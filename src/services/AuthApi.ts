@@ -4,8 +4,6 @@ import md5 from 'md5'
 
 class AuthApi {
   public async register(data: App.Register) {
-    const apiUrl = 'https://digitalott.host/roze/actions/register_app'
-
     const fd = new FormData()
     fd.append('name', data.name)
     fd.append('email', data.email)
@@ -17,37 +15,28 @@ class AuthApi {
     fd.append('state', data.state)
     fd.append('social_link', data.social_link)
     fd.append('social_link_2', data.social_link_2)
-    fd.append('img', data.img)
 
-    const options = {
-      method: 'POST',
-      body: fd,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data'
-      }
-    }
+    const uriParts = data.img.split('.')
+    const fileType = uriParts[uriParts.length - 1]
 
-    return fetch(apiUrl, options)
-      .then((res) => res.json())
-      .then((res) => res.text)
-      .catch((e) => {
-        console.log(e)
-        Alert.alert('Erro', 'Erro desconhecido')
+    fd.append(
+      'img',
+      JSON.parse(
+        JSON.stringify({
+          uri: data.img,
+          name: `image.${fileType}`,
+          type: `image/${fileType}`
+        })
+      )
+    )
+
+    return api
+      .post('/actions/register_app', fd, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       })
-
-    // return api
-    //   .post(
-    //     '/actions/register_app',
-    //     { fd },
-    //     {
-    //       headers: { 'Content-Type': 'multipart/form-data' }
-    //     }
-    //   )
-    //   .catch((e: any) => {
-    //     Alert.alert('Erro', e.response.data.error)
-    //     console.log('catch dentro do services')
-    //   })
+      .catch((e: any) => {
+        Alert.alert('Erro', e.response.data.error)
+      })
   }
 
   public async login({ email, pwd }) {

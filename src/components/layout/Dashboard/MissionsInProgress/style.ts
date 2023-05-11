@@ -36,7 +36,7 @@ export const List = styled.FlatList`
   max-height: 500px;
 `
 
-export const ItemContainer = styled.View`
+export const ItemContainer = styled.Pressable`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

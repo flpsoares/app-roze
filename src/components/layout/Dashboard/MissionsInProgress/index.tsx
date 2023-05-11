@@ -23,11 +23,16 @@ import { primary } from '../../../../styles/globalVar'
 
 export const MissionsInProgress: React.FC = () => {
   const { userKey } = useUser()
-  const { navigateToMissionsStackRoutes } = useNavigate()
+  const { navigateToMissionsStackRoutes, navigateToMissionDetail } = useNavigate()
 
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const isFocused = useIsFocused()
+
+  const navigateToMission = (id: number) => {
+    navigateToMissionDetail(id)
+    console.log(id)
+  }
 
   useEffect(() => {
     if (userKey) {
@@ -57,7 +62,7 @@ export const MissionsInProgress: React.FC = () => {
       </Header>
       {missions.map((item, index) => {
         return (
-          <ItemContainer key={index}>
+          <ItemContainer onPress={() => navigateToMission(item.id_camp)} key={index}>
             <Left>
               <ItemImage source={{ uri: item.img }} />
               <ItemInfo>

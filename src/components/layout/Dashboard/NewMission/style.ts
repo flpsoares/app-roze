@@ -46,7 +46,7 @@ export const PaginationDot = styled.View<{ active?: boolean }>`
   background-color: ${({ active }) => (active ? primary : '#c4c4c4')};
 `
 
-export const ItemContainer = styled.View`
+export const ItemContainer = styled.Pressable`
   align-items: center;
   width: 100%;
   gap: 4px;

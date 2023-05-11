@@ -32,21 +32,21 @@ import { useNavigate } from '../../../contexts/NavigateContext'
 export const Register = () => {
   const { navigateToLogin } = useNavigate()
 
-  const [name, setName] = useState('')
-  const [birthDate, setBirthDate] = useState('')
-  const [celphone, setCelphone] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState('Filipe Soares')
+  const [birthDate, setBirthDate] = useState('1990-10-10')
+  const [celphone, setCelphone] = useState('22997783931')
+  const [email, setEmail] = useState('filipe@gmail.com')
+  const [password, setPassword] = useState('123456')
+  const [confirmPassword, setConfirmPassword] = useState('123456')
 
-  const [address, setAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [popularSocialMedia, setPopularSocialMedia] = useState('')
-  const [socialMedia, setSocialMedia] = useState('')
+  const [address, setAddress] = useState('Endereco')
+  const [city, setCity] = useState('Cidade')
+  const [state, setState] = useState('Estado')
+  const [popularSocialMedia, setPopularSocialMedia] = useState('Social media')
+  const [socialMedia, setSocialMedia] = useState('Social mediaa')
   const [imageFile, setImageFile] = useState<File>()
 
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(3)
 
   const [image, setImage] = useState(null)
 
@@ -102,10 +102,6 @@ export const Register = () => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri)
-      const response = await fetch(result.uri)
-      const blob = await response.blob()
-      const file = new File([blob], 'image.png', { type: blob.type })
-      setImageFile(file)
     }
   }
 
@@ -123,12 +119,12 @@ export const Register = () => {
       social_link: popularSocialMedia,
       social_link_2: socialMedia,
       pwd: password,
-      img: imageFile
+      img: image
     }
 
     AuthApi.register(reqData)
       .then((res) => {
-        // Alert.alert('Aviso', res.data.text)
+        Alert.alert('Aviso', res.data.text)
         navigateToLogin()
       })
       .catch((e: any) => {
