@@ -31,12 +31,11 @@ export const MissionsInProgress: React.FC = () => {
 
   const navigateToMission = (id: number) => {
     navigateToMissionDetail(id)
-    console.log(id)
   }
 
   useEffect(() => {
     if (userKey) {
-      MissionsApi.listMissionsInProgress(userKey)
+      MissionsApi.listMissionsWork(userKey)
         .then((res) => {
           setMissions(res.data.slice(0, 6))
         })
@@ -67,10 +66,10 @@ export const MissionsInProgress: React.FC = () => {
               <ItemImage source={{ uri: item.img }} />
               <ItemInfo>
                 <ItemTitle>{item.store}</ItemTitle>
-                <ItemName>{item.name}</ItemName>
+                <ItemName>{item.cam_name}</ItemName>
               </ItemInfo>
             </Left>
-            {item.status === 'pending' && (
+            {/* {item.status === 'pending' && (
               <ItemStatus status={item.status}>Pendente</ItemStatus>
             )}
             {item.status === 'approved' && (
@@ -81,7 +80,7 @@ export const MissionsInProgress: React.FC = () => {
             )}
             {item.status === 'work' && (
               <ItemStatus status={item.status}>Em andamento</ItemStatus>
-            )}
+            )} */}
           </ItemContainer>
         )
       })}

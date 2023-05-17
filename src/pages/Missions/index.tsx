@@ -51,7 +51,7 @@ export const Missions: React.FC = () => {
   }
 
   useEffect(() => {
-    MissionsApi.listMissionsInProgress(userKey)
+    MissionsApi.listMissionsWork(userKey)
       .then((res) => {
         setMissions(res.data)
       })
@@ -100,10 +100,10 @@ export const Missions: React.FC = () => {
               <MissionListItem
                 id={item.id}
                 id_camp={item.id_camp}
-                img={item.img}
-                name={item.name}
+                cam_name={item.cam_name}
                 status={item.status}
                 store={item.store}
+                img={item.img}
                 key={index}
               />
             )

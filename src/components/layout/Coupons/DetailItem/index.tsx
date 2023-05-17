@@ -34,7 +34,7 @@ import Modal from 'react-native-modal'
 import { AntDesign } from '@expo/vector-icons'
 import { DropdownCouponDetail } from '../../../DropdownCouponDetail'
 
-export const DetailItem: React.FC<App.Coupom> = (coupom) => {
+export const DetailItem: React.FC<App.Tickets> = (coupom) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false)
 
@@ -54,11 +54,11 @@ export const DetailItem: React.FC<App.Coupom> = (coupom) => {
     <Container>
       <ItemTop>
         <ItemAvatarItem>
-          <ItemAvatarImage source={{ uri: 'https://picsum.photos/id/1/200/300' }} />
+          <ItemAvatarImage source={{ uri: coupom.img }} />
         </ItemAvatarItem>
         <ItemTopInfo>
-          <Name>{coupom.name}</Name>
-          <NormalText>{coupom.store}</NormalText>
+          <Name>{coupom.camp_name}</Name>
+          <NormalText>{coupom.store_name}</NormalText>
         </ItemTopInfo>
       </ItemTop>
       <Line></Line>
@@ -89,7 +89,7 @@ export const DetailItem: React.FC<App.Coupom> = (coupom) => {
           <ModalAvatarItem>
             <ModalAvatarImage source={{ uri: coupom.img }} />
           </ModalAvatarItem>
-          <ModalTitle>{coupom.store}</ModalTitle>
+          <ModalTitle>{coupom.store_name}</ModalTitle>
           <LineInfo>
             <ModalDiscountNumber>{coupom.award}</ModalDiscountNumber>
           </LineInfo>

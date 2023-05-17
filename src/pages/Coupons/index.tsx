@@ -9,20 +9,22 @@ import { useUser } from '../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
 import { ActivityIndicator, View } from 'react-native'
 import { primary } from '../../styles/globalVar'
+import MissionsApi from '../../services/MissionsApi'
 
 export const Coupons: React.FC = () => {
   const { userKey } = useUser()
 
-  const [coupons, setCoupons] = useState<App.Coupom[]>([])
+  const [coupons, setCoupons] = useState<App.Tickets[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    CouponsApi.list(userKey)
+    console.log(userKey)
+    MissionsApi.listMissionsInProgress(userKey)
       .then((res) => {
-        setCoupons(res.data)
         console.log(res.data)
+        setCoupons(res.data)
       })
       .finally(() => setIsLoading(false))
   }, [isFocused])
@@ -55,9 +57,12 @@ export const Coupons: React.FC = () => {
                 id={c.id}
                 img={c.img}
                 validate={c.validate}
-                name={c.name}
-                status={c.status}
-                store={c.store}
+                camp_name={c.camp_name}
+                desc={c.desc}
+                id_camp={c.id_camp}
+                store_loc={c.store_loc}
+                store_name={c.store_name}
+                view={c.view}
               />
             )
           })}

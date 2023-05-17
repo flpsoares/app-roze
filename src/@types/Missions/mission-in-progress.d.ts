@@ -2,9 +2,9 @@ declare namespace App {
   export interface MissionInProgress {
     id: number
     id_camp: number
-    img: string
-    name: string
-    status: string
+    cam_name: string
     store: string
+    status: string
+    img: string
   }
 }

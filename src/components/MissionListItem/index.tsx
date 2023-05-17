@@ -6,10 +6,9 @@ import { Entypo } from '@expo/vector-icons'
 
 export const MissionListItem: React.FC<App.MissionInProgress> = ({
   id_camp,
-  name,
+  cam_name,
   store,
-  img,
-  status
+  img
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -19,13 +18,13 @@ export const MissionListItem: React.FC<App.MissionInProgress> = ({
         <Image source={{ uri: img }} />
         <Info>
           <Title>{store}</Title>
-          <Name>{name}</Name>
+          <Name>{cam_name}</Name>
         </Info>
       </Left>
-      {status === 'pending' && <Status status={status}>Pendente</Status>}
+      {/* {status === 'pending' && <Status status={status}>Pendente</Status>}
       {status === 'approved' && <Status status={status}>Aprovado</Status>}
       {status === 'reject' && <Status status={status}>Rejeitado</Status>}
-      {status === 'work' && <Status status={status}>Em andamento</Status>}
+      {status === 'work' && <Status status={status}>Em andamento</Status>} */}
       <Menu>
         <Entypo
           onPress={() => setIsOpen(!isOpen)}

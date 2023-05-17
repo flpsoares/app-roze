@@ -6,6 +6,10 @@ class MissionsApi {
     return api.get('/app/tickets/list', { headers: { Authorization: key } })
   }
 
+  public async listMissionsWork(key: string) {
+    return api.get('/app/tickets/work', { headers: { Authorization: key } })
+  }
+
   public async list(key: string) {
     return api.get('/app/missions/list', { headers: { Authorization: key } })
   }
