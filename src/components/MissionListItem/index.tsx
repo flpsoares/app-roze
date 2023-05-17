@@ -8,6 +8,7 @@ export const MissionListItem: React.FC<App.MissionInProgress> = ({
   id_camp,
   id,
   cam_name,
+  base_award,
   store,
   img
 }) => {
@@ -34,7 +35,9 @@ export const MissionListItem: React.FC<App.MissionInProgress> = ({
           color={primary}
         />
       </Menu>
-      {isOpen && <DropdownMissionList id={id} id_camp={id_camp} />}
+      {isOpen && (
+        <DropdownMissionList id={id} id_camp={id_camp} base_award={base_award} />
+      )}
     </Container>
   )
 }

@@ -100,6 +100,7 @@ export const Missions: React.FC = () => {
               <MissionListItem
                 id={item.id}
                 id_camp={item.id_camp}
+                base_award={item.base_award}
                 cam_name={item.cam_name}
                 status={item.status}
                 store={item.store}

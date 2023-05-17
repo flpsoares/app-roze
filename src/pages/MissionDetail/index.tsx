@@ -116,11 +116,6 @@ export const MissionDetail: React.FC = () => {
               </ModalCloseButton>
             </ModalHeader>
             <ModalSubTitle>Objetivo da missão</ModalSubTitle>
-            {/* <ModalInfo>
-              <ModalInfoText>Número de visualizações: 80,000</ModalInfoText>
-              <ModalInfoText>Número de curtidas: 80,000</ModalInfoText>
-              <ModalInfoText>Lorem ipsum: 80,000</ModalInfoText>
-            </ModalInfo> */}
             <Discount text={mission?.base_award} />
             <ModalSendLinkText>Enviar o link para Aprovação</ModalSendLinkText>
             <ModalInput
