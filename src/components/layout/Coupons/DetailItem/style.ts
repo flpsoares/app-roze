@@ -207,6 +207,8 @@ export const ModalChooseTitle = styled.Text`
   font-size: 24px;
   font-weight: bold;
   line-height: 32px;
+
+  text-align: center;
 `
 
 export const ModalChooseSubTitle = styled.Text`
@@ -214,6 +216,8 @@ export const ModalChooseSubTitle = styled.Text`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
+
+  text-align: center;
 
   color: #141517;
 `
@@ -230,9 +234,6 @@ export const CarouselOptionText = styled.Text`
   font-weight: 700;
   font-size: 17px;
   line-height: 26px;
-  /* identical to box height */
-
-  /* Black/ fundo */
 
   color: #141517;
 `
@@ -268,4 +269,30 @@ export const PaginationDot = styled.View<{ active?: boolean }>`
   background-color: ${({ active }) => (active ? primary : '#c4c4c4')};
 `
 
-export const Gif = styled.Image``
+export const Gif = styled.Image`
+  height: 200px;
+`
+
+export const GifButtonSubmit = styled.TouchableOpacity`
+  background-color: ${primary};
+  border-radius: 30px;
+  align-self: center;
+
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  height: 50px;
+  margin-top: 14px;
+
+  width: 80%;
+`
+
+export const AwardText = styled.Text`
+  font-style: normal;
+  font-weight: 800;
+  font-size: 36px;
+
+  text-align: center;
+
+  color: #141517;
+`

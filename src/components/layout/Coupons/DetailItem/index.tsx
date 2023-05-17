@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {
+  AwardText,
   ButtonDetail,
   ButtonDetailText,
   ButtonSubmit,
@@ -14,6 +15,7 @@ import {
   Discount,
   ExtraText,
   Gif,
+  GifButtonSubmit,
   Icon,
   ItemAvatarImage,
   ItemAvatarItem,
@@ -79,10 +81,6 @@ export const DetailItem: React.FC<App.Tickets> = (coupom) => {
   const openGif = () => {
     setShowGif(true)
     CouponsApi.updateView(userKey, coupom.id)
-    setTimeout(() => {
-      closeChooseModal()
-      openModal()
-    }, 2000)
   }
 
   const toggleDropdown = () => {
@@ -160,36 +158,54 @@ export const DetailItem: React.FC<App.Tickets> = (coupom) => {
         onBackButtonPress={closeChooseModal}
         isVisible={modalChooseIsOpen}
       >
-        <ModalContainer>
-          <ModalChooseTitle>Escolha um presente para ganhar</ModalChooseTitle>
-          <ModalChooseSubTitle>
-            Clique em cima de um dos presentes para ganhar um cupom
-          </ModalChooseSubTitle>
-          {showGif ? (
-            <Gif
-              source={gif}
-              style={{ width: 200, height: 200 }}
-              resizeMode="contain"
-            ></Gif>
-          ) : (
-            <>
-              <CarouselContainer>
-                <Carousel
-                  data={data}
-                  renderItem={renderItem}
-                  sliderWidth={Dimensions.get('window').width - 70}
-                  itemWidth={300}
-                  onSnapToItem={setActiveIndex}
-                />
-              </CarouselContainer>
-              {renderPagination()}
-            </>
-          )}
+        {!showGif && (
+          <ModalContainer>
+            <ModalChooseTitle>Escolha um presente para ganhar</ModalChooseTitle>
+            <ModalChooseSubTitle>
+              Clique em cima de um dos presentes para ganhar um cupom
+            </ModalChooseSubTitle>
+            <CarouselContainer>
+              <Carousel
+                data={data}
+                renderItem={renderItem}
+                sliderWidth={Dimensions.get('window').width - 70}
+                itemWidth={300}
+                onSnapToItem={setActiveIndex}
+              />
+            </CarouselContainer>
+            {renderPagination()}
 
-          <ModalButtonClose onPress={closeChooseModal}>
-            <AntDesign name="close" color="#000" size={30} />
-          </ModalButtonClose>
-        </ModalContainer>
+            <ModalButtonClose onPress={closeChooseModal}>
+              <AntDesign name="close" color="#000" size={30} />
+            </ModalButtonClose>
+          </ModalContainer>
+        )}
+        {showGif && (
+          <ModalContainer>
+            <ModalChooseTitle>Parabéns!</ModalChooseTitle>
+            <ModalChooseTitle>Você ganhou</ModalChooseTitle>
+            <AwardText>{coupom.award}</AwardText>
+            <Gif source={gif} resizeMode="contain"></Gif>
+            <GifButtonSubmit
+              onPress={() => {
+                closeChooseModal()
+                openModal()
+              }}
+            >
+              <ButtonSubmitText
+                onPress={() => {
+                  closeChooseModal()
+                  openModal()
+                }}
+              >
+                Coletar
+              </ButtonSubmitText>
+            </GifButtonSubmit>
+            <ModalButtonClose onPress={closeChooseModal}>
+              <AntDesign name="close" color="#000" size={30} />
+            </ModalButtonClose>
+          </ModalContainer>
+        )}
       </Modal>
       <Modal
         onBackdropPress={closeModal}
