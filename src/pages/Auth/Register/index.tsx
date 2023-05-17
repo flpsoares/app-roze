@@ -44,9 +44,10 @@ export const Register = () => {
   const [state, setState] = useState('Estado')
   const [popularSocialMedia, setPopularSocialMedia] = useState('Social media')
   const [socialMedia, setSocialMedia] = useState('Social mediaa')
+  const [gender, setGender] = useState('')
   const [imageFile, setImageFile] = useState<File>()
 
-  const [step, setStep] = useState(3)
+  const [step, setStep] = useState(1)
 
   const [image, setImage] = useState(null)
 
@@ -108,6 +109,20 @@ export const Register = () => {
   const handleSubmit = () => {
     const birth = birthDate.replace(/^(\d{2})\/(\d{2})\/(\d{4})$/, '$3-$2-$1')
 
+    let formatedGender = ''
+
+    if (gender === 'Homem') {
+      formatedGender = 'male'
+    }
+
+    if (gender === 'Mulher') {
+      formatedGender = 'female'
+    }
+
+    if (gender === 'Other') {
+      formatedGender = 'other'
+    }
+
     const reqData: App.Register = {
       name,
       email,
@@ -119,6 +134,7 @@ export const Register = () => {
       social_link: popularSocialMedia,
       social_link_2: socialMedia,
       pwd: password,
+      gender: formatedGender,
       img: image
     }
 
@@ -139,6 +155,8 @@ export const Register = () => {
   }
 
   const cities = ['city 1', 'city 2', 'city 3', 'city 4', 'city 5']
+
+  const genders = ['Homem', 'Mulher', 'Outro']
 
   const next = () => {
     if (step === 1) {
@@ -261,6 +279,26 @@ export const Register = () => {
                       onChangeText={(e) => setEmail(e)}
                       placeholderTextColor="#464646"
                       placeholder="E-mail@exemplo.com"
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <InputTitle>Gênero:</InputTitle>
+                    <SelectDropdown
+                      data={genders}
+                      rowStyle={{
+                        backgroundColor: '#141517'
+                      }}
+                      buttonStyle={{
+                        backgroundColor: '#141517',
+                        borderRadius: 30,
+                        width: '100%'
+                      }}
+                      defaultButtonText="Selecione"
+                      rowTextStyle={{ color: '#fff' }}
+                      buttonTextStyle={{ color: '#fff' }}
+                      onSelect={(selectedItem, index) => {
+                        setCity(selectedItem)
+                      }}
                     />
                   </InputItem>
                   <InputItem>

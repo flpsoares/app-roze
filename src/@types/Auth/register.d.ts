@@ -8,6 +8,7 @@ declare namespace App {
     street: string
     city: string
     state: string
+    gender: string
     social_link: string
     social_link_2: string
     img: any

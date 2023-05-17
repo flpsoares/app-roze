@@ -15,6 +15,7 @@ class AuthApi {
     fd.append('state', data.state)
     fd.append('social_link', data.social_link)
     fd.append('social_link_2', data.social_link_2)
+    fd.append('gender', data.gender)
 
     const uriParts = data.img.split('.')
     const fileType = uriParts[uriParts.length - 1]
