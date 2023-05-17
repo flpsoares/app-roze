@@ -84,7 +84,7 @@ export const Missions: React.FC = () => {
         </Button>
       </ButtonsArea>
       <Wrapper>
-        <Title>Missões em andamento</Title>
+        {/* <Title>Missões em andamento</Title> */}
         {missions
           ?.filter((m) => {
             if (isPending) {

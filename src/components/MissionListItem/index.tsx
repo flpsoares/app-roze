@@ -6,6 +6,7 @@ import { Entypo } from '@expo/vector-icons'
 
 export const MissionListItem: React.FC<App.MissionInProgress> = ({
   id_camp,
+  id,
   cam_name,
   store,
   img
@@ -33,7 +34,7 @@ export const MissionListItem: React.FC<App.MissionInProgress> = ({
           color={primary}
         />
       </Menu>
-      {isOpen && <DropdownMissionList id={id_camp} />}
+      {isOpen && <DropdownMissionList id={id} id_camp={id_camp} />}
     </Container>
   )
 }

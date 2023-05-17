@@ -6,7 +6,7 @@ export type RootStackParamsList = {
   Dashboard: undefined
   Missions: undefined
   NewMissions: undefined
-  MissionDetail: { id: number }
+  MissionDetail: { id: number; id_camp: number }
   MissionsStackRoutes: undefined
   Coupons: undefined
   Support: undefined

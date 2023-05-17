@@ -56,9 +56,12 @@ export const MissionDetail: React.FC = () => {
 
   const sendLink = () => {
     if (link !== '') {
-      MissionsApi.sendLink(userKey, route.params.id, link).then((res) => {
-        changeModal()
-      })
+      MissionsApi.sendLink(userKey, route.params.id, link)
+        .then((res) => {
+          console.log(res.data.text)
+          changeModal()
+        })
+        .catch((e) => console.log(e.response.data))
     } else {
       Alert.alert('Erro', 'Digite um link antes de confirmar')
     }
@@ -71,7 +74,7 @@ export const MissionDetail: React.FC = () => {
   }
 
   useEffect(() => {
-    MissionsApi.detail(userKey, route.params.id).then((res) => {
+    MissionsApi.detail(userKey, route.params.id_camp).then((res) => {
       setMission(res.data)
     })
   }, [route.params.id])
