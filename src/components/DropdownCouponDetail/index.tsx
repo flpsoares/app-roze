@@ -3,10 +3,10 @@ import { Container, Line, Text, Title } from './style'
 import { useNavigate } from '../../contexts/NavigateContext'
 
 interface DropdownListProps {
-  id: number
+  coupom: App.Tickets
 }
 
-export const DropdownCouponDetail: React.FC = () => {
+export const DropdownCouponDetail: React.FC<DropdownListProps> = ({ coupom }) => {
   const { navigateToMissionDetail } = useNavigate()
 
   return (
@@ -18,7 +18,7 @@ export const DropdownCouponDetail: React.FC = () => {
       <Text>Não esqueça de compartilhar o momento com amigos e família</Text>
       <Line />
       <Title>Endereço do restaurante</Title>
-      <Text>Av Lorem ipsum Número 384 Bairro Lorem, Cidade Lorem Ipsum, SP</Text>
+      <Text>{coupom.store_loc}</Text>
     </Container>
   )
 }

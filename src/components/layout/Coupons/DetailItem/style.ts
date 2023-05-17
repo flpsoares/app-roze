@@ -182,3 +182,90 @@ export const ModalButtonClose = styled.TouchableOpacity`
   top: 15px;
   right: 15px;
 `
+
+export const ModalChooseContainer = styled.View`
+  align-items: center;
+
+  background: #fff;
+
+  width: 100%;
+  border-radius: 30px;
+
+  position: relative;
+
+  padding: 42px 22px;
+`
+
+export const ModalChooseImage = styled.Image`
+  border-radius: 5000px;
+  width: 100%;
+  height: 100%;
+`
+
+export const ModalChooseTitle = styled.Text`
+  color: #000;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 32px;
+`
+
+export const ModalChooseSubTitle = styled.Text`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #141517;
+`
+
+export const CarouselContainer = styled.View`
+  height: 300px;
+
+  align-items: center;
+`
+
+export const CarouselOptionText = styled.Text`
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 26px;
+  /* identical to box height */
+
+  /* Black/ fundo */
+
+  color: #141517;
+`
+
+export const CarouselButtonSubmit = styled.TouchableOpacity`
+  background-color: ${primary};
+  border-radius: 30px;
+  align-self: center;
+
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  margin-top: 20px;
+  flex: 1;
+
+  width: 80%;
+`
+
+export const CarouselImage = styled.Image``
+
+export const PaginationContainer = styled.View`
+  margin-top: 16px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`
+
+export const PaginationDot = styled.View<{ active?: boolean }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  margin: 0 4px;
+  background-color: ${({ active }) => (active ? primary : '#c4c4c4')};
+`
+
+export const Gif = styled.Image``
