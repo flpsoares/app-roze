@@ -15,7 +15,7 @@ import { useUser } from '../contexts/AuthContext'
 const Drawer = createDrawerNavigator()
 
 export const DrawerRoutes: React.FC = () => {
-  const { setUserKey } = useUser()
+  const { setUserKey, setUser } = useUser()
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -25,7 +25,7 @@ export const DrawerRoutes: React.FC = () => {
       if (storedKey !== null) {
         AuthApi.checkToken(storedKey)
           .then((res) => {
-            console.log(res.data.text)
+            console.log(res.data)
             setUserKey(storedKey)
           })
           .catch((e) => {

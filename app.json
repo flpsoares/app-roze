@@ -1,11 +1,16 @@
 {
   "expo": {
-    "name": "app-roze",
-    "slug": "app-roze",
+    "name": "Roze",
+    "slug": "roze",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
+    "icon": "./public/assets/icon.png",
+    "splash": {
+      "image": "./public/assets/splash.png",
+      "resizeMode": "contain"
+    },
     "extra": {
       "eas": {
         "projectId": "dd989678-46c6-4ff6-963b-2ba25ba6aafb"

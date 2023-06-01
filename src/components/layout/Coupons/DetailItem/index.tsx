@@ -89,7 +89,9 @@ export const DetailItem: React.FC<App.Tickets> = (coupom) => {
 
   const renderItem = ({ item }: { item }) => (
     <CarouselContainer>
-      <CarouselImage source={require('../../../../../public/assets/gift.png')} />
+      <CarouselImage
+        source={require('../../../../../public/assets/gift-image.png')}
+      />
       <CarouselOptionText>{item.title}</CarouselOptionText>
       <CarouselButtonSubmit onPress={openGif}>
         <ButtonSubmitText>Escolher</ButtonSubmitText>

@@ -22,7 +22,7 @@ const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
 export const AuthRoutes: React.FC = () => {
-  const { setUserKey, setHasUser, hasUser } = useUser()
+  const { setUserKey, setHasUser, hasUser, setUser } = useUser()
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -35,6 +35,7 @@ export const AuthRoutes: React.FC = () => {
           .then((res) => {
             setUserKey(storedKey)
             setHasUser(true)
+            setUser(res.data)
           })
           .catch((e) => {
             console.log(e.response.data.error)

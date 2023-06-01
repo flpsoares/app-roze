@@ -24,7 +24,7 @@ export const CustomDrawer: React.FC = () => {
     navigateToLogin
   } = useNavigate()
 
-  const { setHasUser, setUserKey } = useUser()
+  const { setHasUser, setUserKey, user } = useUser()
 
   const logOut = () => {
     AsyncStorage.removeItem('key')
@@ -37,11 +37,11 @@ export const CustomDrawer: React.FC = () => {
       <ProfileArea>
         <AvatarArea>
           <AvatarBorder>
-            <Avatar source={require('../../../public/assets/Auth/banner.png')} />
+            <Avatar source={{ uri: user?.img }} />
           </AvatarBorder>
         </AvatarArea>
-        <Name>Carlos André</Name>
-        <Email>andre_exemplo@gmail.com</Email>
+        <Name>{user?.name}</Name>
+        <Email>{user?.email}</Email>
       </ProfileArea>
       <List>
         {/* <Item>
