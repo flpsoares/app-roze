@@ -10,7 +10,28 @@ class MissionsApi {
     return api.get('/app/tickets/work', { headers: { Authorization: key } })
   }
 
-  public async list(key: string) {
+  public async list(key: string, district?: string, category?: string) {
+    if (district) {
+      return api.post(
+        '/app/missions/list',
+        { district },
+        { headers: { Authorization: key } }
+      )
+    }
+    if (category) {
+      return api.post(
+        '/app/missions/list',
+        { category },
+        { headers: { Authorization: key } }
+      )
+    }
+    if (category && category) {
+      return api.post(
+        '/app/missions/list',
+        { district, category },
+        { headers: { Authorization: key } }
+      )
+    }
     return api.get('/app/missions/list', { headers: { Authorization: key } })
   }
 

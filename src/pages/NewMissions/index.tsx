@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {
+  ButtonClear,
+  ButtonClearText,
   ButtonSubmit,
   ButtonSubmitText,
   Container,
@@ -40,13 +42,30 @@ export const NewMissions: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const [missions, setMissions] = useState<App.Mission[]>([])
+
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    MissionsApi.list(userKey)
-      .then((res) => setMissions(res.data))
-      .finally(() => setIsLoading(false))
-  }, [])
+  const [makeRequest, setMakeRequest] = useState(false)
+
+  const [category, setCategory] = useState('')
+  const [district, setDistrict] = useState('')
+
+  const [secondPickerOpen, setSecondPickerOpen] = useState(false)
+  const [districtPickerOpen, setDistrictPickerOpen] = useState(false)
+
+  const [secondPickerItems, setSecondPickerItems] = useState([
+    { value: 'Churrascaria', label: 'Churrascaria' },
+    { value: 'Mexicana', label: 'Culinária Mexicana' },
+    { value: 'Japonesa', label: 'Culinária Japonesa' },
+    { value: 'Italiana', label: 'Culinária Italiana' }
+  ])
+
+  const [districtsPickerItems, setDistrictsPickerItems] = useState([])
+
+  const toggleMakeRequest = () => {
+    setMakeRequest(!makeRequest)
+    closeModal()
+  }
 
   const openModal = () => {
     setIsOpen(true)
@@ -56,19 +75,66 @@ export const NewMissions: React.FC = () => {
     setIsOpen(false)
   }
 
-  const [pickerOpen, setPickerOpen] = useState(false)
-  const [secondPickerOpen, setSecondPickerOpen] = useState(false)
+  const clearFilters = () => {
+    setCategory('')
+    setDistrict('')
+    toggleMakeRequest()
+  }
 
-  const [value, setValue] = useState(null)
-  const [secondValue, setSecondValue] = useState(null)
-  const [pickerItems, setPickerItems] = useState([
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' }
-  ])
-  const [secondPickerItems, setSecondPickerItems] = useState([
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' }
-  ])
+  useEffect(() => {
+    setIsLoading(true)
+    if (district !== '' && category === '') {
+      MissionsApi.list(userKey, district)
+        .then((res) => {
+          setMissions(res.data.camps)
+          const pickerItems = res.data.districts?.map((d) => ({
+            label: d,
+            value: d
+          }))
+          setDistrictsPickerItems(pickerItems)
+        })
+        .finally(() => setIsLoading(false))
+    }
+
+    if (district !== '' && category !== '') {
+      MissionsApi.list(userKey, district, category)
+        .then((res) => {
+          setMissions(res.data.camps)
+          const pickerItems = res.data.districts?.map((d) => ({
+            label: d,
+            value: d
+          }))
+          setDistrictsPickerItems(pickerItems)
+        })
+        .finally(() => setIsLoading(false))
+    }
+
+    if (district === '' && category !== '') {
+      MissionsApi.list(userKey, undefined, category)
+        .then((res) => {
+          setMissions(res.data.camps)
+          const pickerItems = res.data.districts?.map((d) => ({
+            label: d,
+            value: d
+          }))
+          setDistrictsPickerItems(pickerItems)
+        })
+        .finally(() => setIsLoading(false))
+    }
+
+    if (district === '' && category === '') {
+      MissionsApi.list(userKey)
+        .then((res) => {
+          setMissions(res.data.camps)
+          const pickerItems = res.data.districts?.map((d) => ({
+            label: d,
+            value: d
+          }))
+          setDistrictsPickerItems(pickerItems)
+        })
+        .finally(() => setIsLoading(false))
+    }
+  }, [makeRequest])
 
   if (isLoading) {
     return (
@@ -112,7 +178,7 @@ export const NewMissions: React.FC = () => {
       </HeaderContainer>
       <Wrapper>
         <List>
-          {missions.map((item, index) => {
+          {missions?.map((item, index) => {
             return (
               <NewMissionsListItem
                 id={item.id}
@@ -139,38 +205,10 @@ export const NewMissions: React.FC = () => {
             </ModalCloseButton>
           </ModalHeader>
           <Item style={{ zIndex: 30 }}>
-            <ItemText>Tipo de missão</ItemText>
-            <Picker
-              open={pickerOpen}
-              value={value}
-              placeholderStyle={{ color: '#D0D2D1' }}
-              showTickIcon={false}
-              dropDownContainerStyle={{
-                backgroundColor: '#0c0c0e'
-              }}
-              textStyle={{
-                color: '#D0D2D1',
-                borderBottomColor: 'rgba(255, 255, 255, 1)'
-              }}
-              listItemLabelStyle={{
-                justifyContent: 'flex-start',
-                flex: 1,
-                borderColor: '#ccc',
-                borderBottomWidth: 1,
-                paddingVertical: 10,
-                paddingHorizontal: 16
-              }}
-              items={pickerItems}
-              setOpen={setPickerOpen}
-              setValue={setValue}
-              setItems={setPickerItems}
-            ></Picker>
-          </Item>
-          <Item style={{ zIndex: 20 }}>
             <ItemText>Categoria do restaurante</ItemText>
             <Picker
               open={secondPickerOpen}
-              value={secondValue}
+              value={category}
               placeholderStyle={{ color: '#D0D2D1' }}
               showTickIcon={false}
               dropDownContainerStyle={{
@@ -192,22 +230,46 @@ export const NewMissions: React.FC = () => {
               }}
               items={secondPickerItems}
               setOpen={setSecondPickerOpen}
-              setValue={setSecondValue}
+              setValue={setCategory}
               setItems={setSecondPickerItems}
             ></Picker>
           </Item>
-          <Item>
-            <ItemText>Buscar por Bairro</ItemText>
-            <InputItem>
-              <Input placeholder="Buscar" />
-              <InputIcon>
-                <EvilIcons name="search" color="#fff" size={24} />
-              </InputIcon>
-            </InputItem>
+          <Item style={{ zIndex: 20 }}>
+            <ItemText>Buscar por bairro</ItemText>
+            <Picker
+              open={districtPickerOpen}
+              value={district}
+              placeholderStyle={{ color: '#D0D2D1' }}
+              showTickIcon={false}
+              dropDownContainerStyle={{
+                backgroundColor: '#0c0c0e'
+              }}
+              textStyle={{
+                color: '#D0D2D1',
+                borderBottomColor: 'rgba(255, 255, 255, 1)'
+              }}
+              listItemLabelStyle={{
+                justifyContent: 'flex-start',
+                flex: 1,
+                borderColor: '#ccc',
+                borderBottomWidth: 1,
+                width: '100%',
+                zIndex: 1000,
+                paddingVertical: 10,
+                paddingHorizontal: 16
+              }}
+              items={districtsPickerItems}
+              setOpen={setDistrictPickerOpen}
+              setValue={setDistrict}
+              setItems={setDistrictsPickerItems}
+            ></Picker>
           </Item>
-          <ButtonSubmit>
+          <ButtonSubmit onPress={toggleMakeRequest}>
             <ButtonSubmitText>Confirmar</ButtonSubmitText>
           </ButtonSubmit>
+          <ButtonClear onPress={clearFilters}>
+            <ButtonClearText>Limpar filtros</ButtonClearText>
+          </ButtonClear>
         </ModalContainer>
       </Modal>
     </Container>

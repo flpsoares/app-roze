@@ -42,6 +42,7 @@ export const NewMission: React.FC = () => {
 
   const [missions, setMissions] = useState<App.Mission[]>([])
   const [isLoading, setIsLoading] = useState(true)
+
   const isFocused = useIsFocused()
 
   const participate = (id: number) => {
@@ -53,7 +54,7 @@ export const NewMission: React.FC = () => {
     if (userKey) {
       MissionsApi.list(userKey)
         .then((res) => {
-          setMissions(res.data.slice(0, 6))
+          setMissions(res.data.camps.slice(0, 6))
         })
         .catch((e) => {
           console.log(e.response.data)

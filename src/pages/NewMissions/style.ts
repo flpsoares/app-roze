@@ -7,7 +7,6 @@ export const Container = styled.View`
   height: 100%;
   padding: 34px 18px;
   padding-bottom: 44px;
-  border-radius: 4px;
 `
 
 export const ButtonsArea = styled.View`
@@ -143,8 +142,23 @@ export const ButtonSubmit = styled.TouchableOpacity`
   width: 80%;
 `
 
+export const ButtonClear = styled.TouchableOpacity`
+  padding: 18px 12px;
+  border-radius: 30px;
+
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  margin-top: 40px;
+  width: 80%;
+`
+
 export const ButtonSubmitText = styled.Text`
   font-size: 16px;
+`
+export const ButtonClearText = styled.Text`
+  font-size: 16px;
+  color: ${primary};
 `
 
 export const ModalCloseButton = styled.TouchableOpacity``
