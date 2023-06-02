@@ -20,7 +20,6 @@ export const Coupons: React.FC = () => {
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    console.log(userKey)
     MissionsApi.listMissionsInProgress(userKey)
       .then((res) => {
         console.log(res.data)

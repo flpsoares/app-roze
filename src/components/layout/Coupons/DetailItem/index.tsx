@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   AwardText,
   ButtonDetail,
@@ -64,6 +64,8 @@ export const DetailItem: React.FC<App.Tickets> = (coupom) => {
 
   const openModal = () => {
     setModalIsOpen(true)
+    setShowGif(false)
+    coupom.view = true
   }
 
   const openChooseModal = () => {
