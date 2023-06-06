@@ -156,6 +156,36 @@ export const Register = () => {
 
   const cities = ['city 1', 'city 2', 'city 3', 'city 4', 'city 5']
 
+  const states = [
+    'AC',
+    'AL',
+    'AP',
+    'AM',
+    'BA',
+    'CE',
+    'DF',
+    'ES',
+    'GO',
+    'MA',
+    'MT',
+    'MS',
+    'MG',
+    'PA',
+    'PB',
+    'PR',
+    'PE',
+    'PI',
+    'RJ',
+    'RN',
+    'RS',
+    'RO',
+    'RR',
+    'SC',
+    'SP',
+    'SE',
+    'TO'
+  ]
+
   const genders = ['Homem', 'Mulher', 'Outro']
 
   const next = () => {
@@ -337,28 +367,17 @@ export const Register = () => {
                   <InputLine>
                     <HalfInputItem>
                       <InputTitle>Cidade:</InputTitle>
-                      <SelectDropdown
-                        data={cities}
-                        rowStyle={{
-                          backgroundColor: '#141517'
-                        }}
-                        buttonStyle={{
-                          backgroundColor: '#141517',
-                          borderRadius: 30,
-                          width: '100%'
-                        }}
-                        defaultButtonText="Selecione"
-                        rowTextStyle={{ color: '#fff' }}
-                        buttonTextStyle={{ color: '#fff' }}
-                        onSelect={(selectedItem, index) => {
-                          setCity(selectedItem)
-                        }}
+                      <Input
+                        value={city}
+                        onChangeText={(e) => setCity(e)}
+                        placeholderTextColor="#464646"
+                        placeholder="Cidade"
                       />
                     </HalfInputItem>
                     <HalfInputItem>
                       <InputTitle>Estado:</InputTitle>
                       <SelectDropdown
-                        data={cities}
+                        data={states}
                         rowStyle={{
                           backgroundColor: '#141517'
                         }}

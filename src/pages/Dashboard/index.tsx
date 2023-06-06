@@ -11,7 +11,7 @@ import { ActivityIndicator, View } from 'react-native'
 import { primary } from '../../styles/globalVar'
 
 export const Dashboard: React.FC = () => {
-  const { userKey } = useUser()
+  const { userKey, user } = useUser()
 
   const [coupons, setCoupons] = useState<App.Coupom[]>([])
   const isFocused = useIsFocused()
@@ -34,7 +34,7 @@ export const Dashboard: React.FC = () => {
       contentContainerStyle={{ flexGrow: 1 }}
     >
       <Container>
-        <Header title="Bem vindo usuário" />
+        <Header title={`Bem vindo ${user?.name}`} />
         {isLoading ? (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ActivityIndicator color={primary} size="large" />

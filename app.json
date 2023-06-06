@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Roze",
-    "slug": "roze",
+    "slug": "app-roze",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

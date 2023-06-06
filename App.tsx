@@ -19,7 +19,7 @@ export default function App() {
       }
     }
 
-    // updateApp()
+    updateApp()
   }, [])
 
   return (
