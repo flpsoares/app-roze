@@ -10,7 +10,8 @@ export const MissionListItem: React.FC<App.MissionInProgress> = ({
   cam_name,
   base_award,
   store,
-  img
+  img,
+  desc
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -36,7 +37,12 @@ export const MissionListItem: React.FC<App.MissionInProgress> = ({
         />
       </Menu>
       {isOpen && (
-        <DropdownMissionList id={id} id_camp={id_camp} base_award={base_award} />
+        <DropdownMissionList
+          id={id}
+          id_camp={id_camp}
+          base_award={base_award}
+          desc={desc}
+        />
       )}
     </Container>
   )

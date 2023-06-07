@@ -13,6 +13,8 @@ import {
   ModalSendLinkText,
   ModalSubTitle,
   ModalTitle,
+  ObjetiveBox,
+  ObjetiveText,
   SecondModalBanner,
   SecondModalButtonClose,
   SecondModalContainer,
@@ -30,12 +32,14 @@ interface DropdownListProps {
   id: number
   id_camp: number
   base_award: string
+  desc: string
 }
 
 export const DropdownMissionList: React.FC<DropdownListProps> = ({
   id,
   id_camp,
-  base_award
+  base_award,
+  desc
 }) => {
   const { navigateToMissionDetail } = useNavigate()
   const { userKey } = useUser()
@@ -83,6 +87,9 @@ export const DropdownMissionList: React.FC<DropdownListProps> = ({
             </ModalCloseButton>
           </ModalHeader>
           <ModalSubTitle>Objetivo da missão</ModalSubTitle>
+          <ObjetiveBox>
+            <ObjetiveText>{desc}</ObjetiveText>
+          </ObjetiveBox>
           <Discount text={base_award} />
           <ModalSendLinkText>Enviar o link para Aprovação</ModalSendLinkText>
           <ModalInput

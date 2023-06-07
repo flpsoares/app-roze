@@ -6,6 +6,7 @@ declare namespace App {
     store: string
     status: string
     img: string
+    desc: string
     base_award: string
   }
 }

@@ -93,7 +93,7 @@ export const Missions: React.FC = () => {
               return m.status === 'approved'
             } else if (isReject) {
               return m.status === 'reject'
-            } else return m
+            } else return m.status === 'work'
           })
           .map((item, index) => {
             return (
@@ -102,6 +102,7 @@ export const Missions: React.FC = () => {
                 id_camp={item.id_camp}
                 base_award={item.base_award}
                 cam_name={item.cam_name}
+                desc={item.desc}
                 status={item.status}
                 store={item.store}
                 img={item.img}

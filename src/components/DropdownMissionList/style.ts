@@ -4,11 +4,9 @@ import { background, primary } from '../../styles/globalVar'
 export const Container = styled.View`
   background: ${primary};
   width: 200px;
-  /* height: 200px; */
   z-index: 1000;
 
   position: absolute;
-  /* bottom: -10px; */
   right: 30px;
   padding: 6px;
   border-top-left-radius: 6px;
@@ -49,7 +47,6 @@ export const ModalContainer = styled.View`
   background: ${background};
   width: 100%;
   justify-items: center;
-  /* align-items: center; */
   border-radius: 30px;
 
   padding: 22px;
@@ -65,6 +62,7 @@ export const ModalTitle = styled.Text`
 export const ModalSubTitle = styled.Text`
   color: ${primary};
   font-size: 22px;
+  margin-bottom: 12px;
 `
 
 export const ModalHeader = styled.View`
@@ -148,4 +146,21 @@ export const SecondModalButtonClose = styled.TouchableOpacity`
   position: absolute;
   top: 15px;
   right: 15px;
+`
+
+export const ObjetiveBox = styled.View`
+  background: #141517;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 12px;
+`
+
+export const ObjetiveText = styled.Text`
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+
+  color: #d0d2d1;
 `
