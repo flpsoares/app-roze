@@ -58,7 +58,6 @@ export const MissionDetail: React.FC = () => {
     if (link !== '') {
       MissionsApi.sendLink(userKey, route.params.id, link)
         .then((res) => {
-          console.log(res.data.text)
           changeModal()
         })
         .catch((e) => console.log(e.response.data))
@@ -77,7 +76,7 @@ export const MissionDetail: React.FC = () => {
     MissionsApi.detail(userKey, route.params.id_camp).then((res) => {
       setMission(res.data)
     })
-  }, [route.params.id])
+  }, [route.params.id, route.params.id_camp])
 
   return (
     <ScrollableContainer

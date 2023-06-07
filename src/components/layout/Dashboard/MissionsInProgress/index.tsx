@@ -29,8 +29,8 @@ export const MissionsInProgress: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true)
   const isFocused = useIsFocused()
 
-  const navigateToMission = (id: number) => {
-    navigateToMissionDetail(id)
+  const navigateToMission = (id: number, id_camp: number) => {
+    navigateToMissionDetail({ id, id_camp })
   }
 
   useEffect(() => {
@@ -61,7 +61,10 @@ export const MissionsInProgress: React.FC = () => {
       </Header>
       {missions.map((item, index) => {
         return (
-          <ItemContainer onPress={() => navigateToMission(item.id_camp)} key={index}>
+          <ItemContainer
+            onPress={() => navigateToMission(item.id, item.id_camp)}
+            key={index}
+          >
             <Left>
               <ItemImage source={{ uri: item.img }} />
               <ItemInfo>

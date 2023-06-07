@@ -25,7 +25,6 @@ export const DrawerRoutes: React.FC = () => {
       if (storedKey !== null) {
         AuthApi.checkToken(storedKey)
           .then((res) => {
-            console.log(res.data)
             setUserKey(storedKey)
           })
           .catch((e) => {

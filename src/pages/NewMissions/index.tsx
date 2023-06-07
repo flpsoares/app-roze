@@ -34,12 +34,14 @@ import { useNavigate } from '../../contexts/NavigateContext'
 import MissionsApi from '../../services/MissionsApi'
 import { useUser } from '../../contexts/AuthContext'
 import { primary } from '../../styles/globalVar'
+import { useIsFocused } from '@react-navigation/native'
 
 export const NewMissions: React.FC = () => {
   const { openDrawerMenu } = useNavigate()
   const { userKey } = useUser()
 
   const [isOpen, setIsOpen] = useState(false)
+  const isFocused = useIsFocused()
 
   const [missions, setMissions] = useState<App.Mission[]>([])
 
@@ -134,7 +136,7 @@ export const NewMissions: React.FC = () => {
         })
         .finally(() => setIsLoading(false))
     }
-  }, [makeRequest])
+  }, [makeRequest, isFocused])
 
   if (isLoading) {
     return (

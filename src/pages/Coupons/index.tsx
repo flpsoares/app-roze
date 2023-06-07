@@ -22,7 +22,6 @@ export const Coupons: React.FC = () => {
   useEffect(() => {
     MissionsApi.listMissionsInProgress(userKey)
       .then((res) => {
-        console.log(res.data)
         setCoupons(res.data)
       })
       .finally(() => setIsLoading(false))

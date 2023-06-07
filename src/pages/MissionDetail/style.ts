@@ -162,7 +162,8 @@ export const ButtonSubmit = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  width: 80%;
+  width: 100%;
+  height: 50px;
 `
 
 export const ButtonSubmitText = styled.Text`

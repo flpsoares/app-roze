@@ -156,7 +156,6 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
         email
       )
         .then((res) => {
-          console.log(res.data.key)
           Alert.alert('Sucesso', 'Código válido')
           setKey(res.data.key)
           next()

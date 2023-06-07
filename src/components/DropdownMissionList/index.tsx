@@ -53,7 +53,6 @@ export const DropdownMissionList: React.FC<DropdownListProps> = ({
     if (link !== '') {
       MissionsApi.sendLink(userKey, id, link)
         .then((res) => {
-          console.log(res.data.text)
           changeModal()
         })
         .catch((e) => console.log(e.response.data))
@@ -64,7 +63,7 @@ export const DropdownMissionList: React.FC<DropdownListProps> = ({
 
   return (
     <Container>
-      <Button onPress={() => navigateToMissionDetail(id, id_camp)}>
+      <Button onPress={() => navigateToMissionDetail({ id, id_camp })}>
         <ButtonText>Detalhes da missão</ButtonText>
       </Button>
       <Line />

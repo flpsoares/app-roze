@@ -6,7 +6,6 @@ export const Container = styled.View`
   height: 100%;
   padding: 34px 18px;
   padding-bottom: 44px;
-  border-radius: 4px;
 `
 
 export const ButtonsArea = styled.View`

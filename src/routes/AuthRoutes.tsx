@@ -30,7 +30,6 @@ export const AuthRoutes: React.FC = () => {
     async function exec() {
       const storedKey = await AsyncStorage.getItem('key')
       if (storedKey !== null) {
-        console.log(storedKey)
         AuthApi.checkToken(storedKey)
           .then((res) => {
             setUserKey(storedKey)

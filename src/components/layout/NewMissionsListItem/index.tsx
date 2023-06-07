@@ -41,7 +41,7 @@ export const NewMissionsListItem: React.FC<NewMissionsListItemProps> = ({
 
   return (
     <Container>
-      <TouchableOpacity onPress={() => navigateToMissionDetail(id)}>
+      <TouchableOpacity onPress={() => navigateToMissionDetail({ id_camp: id })}>
         <Image source={{ uri: image }} />
       </TouchableOpacity>
       <Info>
