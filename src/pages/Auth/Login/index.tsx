@@ -33,7 +33,7 @@ import { useUser } from '../../../contexts/AuthContext'
 
 export const Login = () => {
   const { navigateToRegister, navigateToForgotPassword } = useNavigate()
-  const { setHasUser, setUserKey } = useUser()
+  const { setHasUser, setUserKey, setUser } = useUser()
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -47,6 +47,15 @@ export const Login = () => {
         await AsyncStorage.setItem('key', res.data.key)
         setHasUser(true)
         setUserKey(res.data.key)
+        AuthApi.checkToken(res.data.key)
+          .then((res) => {
+            setUser(res.data)
+          })
+          .catch((e) => {
+            console.log(e.response.data.error)
+            setHasUser(false)
+            setUserKey('')
+          })
       })
       .catch((e: any) => {
         Alert.alert('Erro', e.response.data.error)
