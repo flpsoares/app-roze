@@ -10,35 +10,32 @@ import {
   Title
 } from './style'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
+import NotificationsApi from '../../services/NotificationsApi'
+import { useUser } from '../../contexts/AuthContext'
+import { useNotification } from '../../contexts/NotificationContext'
 
-interface NotificationProps {
-  title: string
-  text: string
-  id: string
-  criado: string
-}
+export const Notification: React.FC<App.Notification> = (notification) => {
+  const { userKey } = useUser()
+  const { makeUpdateNotifications } = useNotification()
 
-export const Notification: React.FC = () => {
+  const deleteNotification = () => {
+    NotificationsApi.deleteNotification(userKey, notification.id).then(() =>
+      makeUpdateNotifications()
+    )
+  }
+
   return (
     <Container>
-      {/* <Line></Line> */}
       <Icon>
         <Ionicons name="notifications-outline" color="#ccc" size={22} />
       </Icon>
       <Content>
         <Title>
-          Título <Date>00/00/0000</Date>
+          {notification.title} <Date>{notification.created}</Date>
         </Title>
-        <Text>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi ab enim
-          vero tenetur sit quidem dolores nihil commodi nam quaerat libero possimus,
-          similique, provident neque obcaecati. Possimus perspiciatis pariatur id.
-        </Text>
-        {/* {text.split('-').map((s: any, index: number) => {
-        return <Content key={index}>{s}</Content>
-      })} */}
+        <Text>{notification.about}</Text>
       </Content>
-      <ButtonDelete>
+      <ButtonDelete onPress={deleteNotification}>
         <AntDesign name="close" color="red" size={20} />
       </ButtonDelete>
     </Container>

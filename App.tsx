@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import { NavigateProvider } from './src/contexts/NavigateContext'
 import { AuthRoutes } from './src/routes/AuthRoutes'
 import { UserProvider } from './src/contexts/AuthContext'
+import { NotificationProvider } from './src/contexts/NotificationContext'
 
 export default function App() {
   useEffect(() => {
@@ -26,8 +27,10 @@ export default function App() {
     <NavigationContainer>
       <UserProvider>
         <NavigateProvider>
-          <AuthRoutes />
-          <StatusBar style="light" backgroundColor="#131313" />
+          <NotificationProvider>
+            <AuthRoutes />
+            <StatusBar style="light" backgroundColor="#131313" />
+          </NotificationProvider>
         </NavigateProvider>
       </UserProvider>
     </NavigationContainer>

@@ -11,11 +11,13 @@ import { MissionsStackRoutes } from './MissionsStackRoutes'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AuthApi from '../services/AuthApi'
 import { useUser } from '../contexts/AuthContext'
+import { useNotification } from '../contexts/NotificationContext'
 
 const Drawer = createDrawerNavigator()
 
 export const DrawerRoutes: React.FC = () => {
-  const { setUserKey, setUser } = useUser()
+  const { setUserKey, userKey } = useUser()
+  const { listNotifications, updateNotifications } = useNotification()
 
   const [isLoading, setIsLoading] = useState(false)
 

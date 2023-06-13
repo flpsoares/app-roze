@@ -50,3 +50,24 @@ export const ModalContainer = styled(Animated.ScrollView)`
 export const ModalListItem = styled.View`
   margin-top: 52px;
 `
+
+export const NotificationButton = styled.TouchableOpacity`
+  position: relative;
+`
+
+export const NotificationNumber = styled.Text`
+  color: ${primary};
+  background: ${primary};
+  border-radius: 50000px;
+  width: 16px;
+  height: 16px;
+  color: ${background};
+  font-weight: bold;
+  font-size: 12px;
+
+  text-align: center;
+
+  position: absolute;
+  top: -5px;
+  right: -5px;
+`

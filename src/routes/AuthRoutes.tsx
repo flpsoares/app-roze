@@ -17,12 +17,14 @@ import { MissionsStackRoutes } from './MissionsStackRoutes'
 import { Support } from '../pages/Support'
 import { NewMissions } from '../pages/NewMissions'
 import { MissionDetail } from '../pages/MissionDetail'
+import { useNotification } from '../contexts/NotificationContext'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
 export const AuthRoutes: React.FC = () => {
-  const { setUserKey, setHasUser, hasUser, setUser } = useUser()
+  const { setUserKey, setHasUser, hasUser, setUser, userKey } = useUser()
+  const { listNotifications, updateNotifications } = useNotification()
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -49,6 +51,12 @@ export const AuthRoutes: React.FC = () => {
 
     exec().finally(() => setIsLoading(false))
   }, [])
+
+  useEffect(() => {
+    if (userKey) {
+      listNotifications(userKey)
+    }
+  }, [updateNotifications, userKey])
 
   if (isLoading) {
     return (

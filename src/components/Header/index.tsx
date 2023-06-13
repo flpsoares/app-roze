@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Container,
   ModalButtonClose,
   ModalContainer,
   ModalListItem,
   ModalOverlay,
+  NotificationButton,
+  NotificationNumber,
   Right,
   Title
 } from './style'
@@ -20,6 +22,10 @@ import { MaterialCommunityIcons, Feather, AntDesign } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigate } from '../../contexts/NavigateContext'
 import { Notification } from '../Notification'
+import { useUser } from '../../contexts/AuthContext'
+import { useNotification } from '../../contexts/NotificationContext'
+import { useIsFocused } from '@react-navigation/native'
+import NotificationsApi from '../../services/NotificationsApi'
 
 interface HeaderProps {
   title: string
@@ -27,9 +33,13 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ title, hasPadding }) => {
+  const { userKey } = useUser()
   const { openDrawerMenu } = useNavigate()
+  const { notifications, makeUpdateNotifications } = useNotification()
 
   const [modalVisible, setModalVisible] = useState(false)
+  const isFocused = useIsFocused()
+
   const translateX = useSharedValue(300)
 
   const toggleModal = () => {
@@ -49,13 +59,27 @@ export const Header: React.FC<HeaderProps> = ({ title, hasPadding }) => {
     }
   })
 
+  useEffect(() => {
+    if (modalVisible) {
+      NotificationsApi.updateViewNotification(userKey).then((res) => {
+        makeUpdateNotifications()
+        console.log(res.data)
+      })
+    }
+  }, [modalVisible])
+
   return (
     <Container hasPadding={hasPadding}>
       <Title>{title}</Title>
       <Right>
-        <TouchableOpacity onPress={toggleModal}>
+        <NotificationButton onPress={toggleModal}>
           <MaterialCommunityIcons name="bell-outline" color="#fff" size={22} />
-        </TouchableOpacity>
+          {notifications.filter((n) => n.view === 0).length > 0 && (
+            <NotificationNumber>
+              {notifications.filter((n) => n.view === 0).length}
+            </NotificationNumber>
+          )}
+        </NotificationButton>
         <TouchableOpacity onPress={openDrawerMenu}>
           <Feather name="menu" color="#fff" size={26} />
         </TouchableOpacity>
@@ -70,13 +94,18 @@ export const Header: React.FC<HeaderProps> = ({ title, hasPadding }) => {
             <AntDesign name="close" color="#fff" size={30} />
           </ModalButtonClose>
           <ModalListItem>
-            <Notification />
-            <Notification />
-            <Notification />
-            <Notification />
-            <Notification />
-            <Notification />
-            <Notification />
+            {notifications.map((n) => {
+              return (
+                <Notification
+                  key={n.id}
+                  about={n.about}
+                  created={n.created}
+                  id={n.id}
+                  title={n.title}
+                  view={n.view}
+                />
+              )
+            })}
           </ModalListItem>
         </ModalContainer>
       </Modal>
