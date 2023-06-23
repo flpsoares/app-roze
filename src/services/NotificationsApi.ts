@@ -13,6 +13,14 @@ class CouponsApi {
   public async deleteNotification(key: string, id: number) {
     return api.post('/app/notify/del', { id }, { headers: { Authorization: key } })
   }
+
+  public async setPushToken(key: string, id: number) {
+    return api.post(
+      '/app/notify/set_id',
+      { id },
+      { headers: { Authorization: key } }
+    )
+  }
 }
 
 export default new CouponsApi()

@@ -35,6 +35,7 @@ export const AuthRoutes: React.FC = () => {
         AuthApi.checkToken(storedKey)
           .then((res) => {
             setUserKey(storedKey)
+            console.log(storedKey)
             setHasUser(true)
             setUser(res.data)
           })

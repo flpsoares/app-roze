@@ -9,9 +9,11 @@ import { useUser } from '../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
 import { ActivityIndicator, View } from 'react-native'
 import { primary } from '../../styles/globalVar'
+import { usePushNotification } from '../../contexts/PushNotificationsContext'
 
 export const Dashboard: React.FC = () => {
   const { userKey, user } = useUser()
+  const { expoPushToken } = usePushNotification()
 
   const [coupons, setCoupons] = useState<App.Coupom[]>([])
   const isFocused = useIsFocused()
@@ -35,6 +37,7 @@ export const Dashboard: React.FC = () => {
     >
       <Container>
         <Header title={`Bem vindo ${user?.name}`} />
+        <Header title={expoPushToken} />
         {isLoading ? (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ActivityIndicator color={primary} size="large" />
