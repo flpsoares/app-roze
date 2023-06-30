@@ -15,18 +15,16 @@ import {
 import { useNavigate } from '../../contexts/NavigateContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useUser } from '../../contexts/AuthContext'
+import NotificationsApi from '../../services/NotificationsApi'
 
 export const CustomDrawer: React.FC = () => {
-  const {
-    navigateToMissionsStackRoutes,
-    navigateToCoupons,
-    navigateToSupport,
-    navigateToLogin
-  } = useNavigate()
+  const { navigateToMissionsStackRoutes, navigateToCoupons, navigateToSupport } =
+    useNavigate()
 
-  const { setHasUser, setUserKey, user } = useUser()
+  const { setHasUser, setUserKey, userKey, user } = useUser()
 
   const logOut = () => {
+    NotificationsApi.setPushToken(userKey, '')
     AsyncStorage.removeItem('key')
     setHasUser(false)
     setUserKey('')

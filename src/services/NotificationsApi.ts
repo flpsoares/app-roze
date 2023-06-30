@@ -14,7 +14,7 @@ class CouponsApi {
     return api.post('/app/notify/del', { id }, { headers: { Authorization: key } })
   }
 
-  public async setPushToken(key: string, id: number) {
+  public async setPushToken(key: string, id: number | string) {
     return api.post(
       '/app/notify/set_id',
       { id },

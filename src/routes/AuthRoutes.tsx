@@ -72,20 +72,14 @@ export const AuthRoutes: React.FC = () => {
 
   useEffect(() => {
     if (hasUser) {
-      console.log('entrou no useEffect')
       registerForPushNotificationsAsync()
         .then(async (token) => {
           if (userKey) {
             setExpoPushToken(token)
-            console.log('executou')
             NotificationsApi.setPushToken(userKey, token)
-              .then(() => alert('Caiu no then'))
-              .catch(() => alert('Caiu no catch'))
           }
         })
         .catch((error) => {
-          console.log(error)
-          console.log('caiu no catch')
           Alert.alert('Aviso', error)
         })
 
