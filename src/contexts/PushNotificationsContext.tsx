@@ -34,9 +34,9 @@ export const PushNotificationProvider = ({
     setExpoPushToken(token)
   }
 
-  // useEffect(() => {
-  //   getToken()
-  // }, [])
+  useEffect(() => {
+    getToken()
+  }, [])
 
   Notifications.setNotificationHandler({
     handleNotification: async () => ({

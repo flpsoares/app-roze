@@ -37,7 +37,6 @@ export const Dashboard: React.FC = () => {
     >
       <Container>
         <Header title={`Bem vindo ${user?.name}`} />
-        <Header title={expoPushToken} />
         {isLoading ? (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ActivityIndicator color={primary} size="large" />

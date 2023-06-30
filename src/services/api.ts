@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export const api = axios.create({
-  baseURL: 'https://digitalott.host/roze'
+  baseURL: 'https://backendserver.cloud/roze'
 })

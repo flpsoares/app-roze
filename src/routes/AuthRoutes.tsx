@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ForgotPassword } from '../pages/Auth/ForgotPassword'
 import { Login } from '../pages/Auth/Login'
 import { Register } from '../pages/Auth/Register'
@@ -10,7 +10,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { useUser } from '../contexts/AuthContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AuthApi from '../services/AuthApi'
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator, View, Alert, Platform } from 'react-native'
 import { CustomDrawer } from '../components/CustomDrawer'
 import { Routes } from './Routes'
 import { MissionsStackRoutes } from './MissionsStackRoutes'
@@ -18,6 +18,11 @@ import { Support } from '../pages/Support'
 import { NewMissions } from '../pages/NewMissions'
 import { MissionDetail } from '../pages/MissionDetail'
 import { useNotification } from '../contexts/NotificationContext'
+import { usePushNotification } from '../contexts/PushNotificationsContext'
+import NotificationsApi from '../services/NotificationsApi'
+
+import * as Notifications from 'expo-notifications'
+import Constants from 'expo-constants'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -25,6 +30,12 @@ const Drawer = createDrawerNavigator()
 export const AuthRoutes: React.FC = () => {
   const { setUserKey, setHasUser, hasUser, setUser, userKey } = useUser()
   const { listNotifications, updateNotifications } = useNotification()
+
+  const { setExpoPushToken } = usePushNotification()
+
+  const [notification, setNotification] = useState<any>(false)
+  const notificationListener = useRef(null)
+  const responseListener = useRef(null)
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -58,6 +69,76 @@ export const AuthRoutes: React.FC = () => {
       listNotifications(userKey)
     }
   }, [updateNotifications, userKey])
+
+  useEffect(() => {
+    if (hasUser) {
+      console.log('entrou no useEffect')
+      registerForPushNotificationsAsync()
+        .then(async (token) => {
+          if (userKey) {
+            setExpoPushToken(token)
+            console.log('executou')
+            NotificationsApi.setPushToken(userKey, token)
+              .then(() => alert('Caiu no then'))
+              .catch(() => alert('Caiu no catch'))
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+          console.log('caiu no catch')
+          Alert.alert('Aviso', error)
+        })
+
+      if (notificationListener) {
+        notificationListener.current = Notifications.addNotificationReceivedListener(
+          (notification) => {
+            setNotification(notification)
+          }
+        )
+      }
+
+      responseListener.current =
+        Notifications.addNotificationResponseReceivedListener((response) => {
+          // console.log(response)
+        })
+
+      return () => {
+        Notifications.removeNotificationSubscription(notificationListener.current)
+        Notifications.removeNotificationSubscription(responseListener.current)
+      }
+    }
+  }, [hasUser])
+
+  async function registerForPushNotificationsAsync() {
+    let token
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync()
+      let finalStatus = existingStatus
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync()
+        finalStatus = status
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!')
+        return
+      }
+      console.log('executou aqui')
+      token = (await Notifications.getExpoPushTokenAsync()).data
+    } else {
+      alert('Must use physical device for Push Notifications')
+    }
+
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C'
+      })
+    }
+
+    return token
+  }
 
   if (isLoading) {
     return (
