@@ -1,14 +1,13 @@
 import styled from 'styled-components/native'
+import { primary } from '../../styles/globalVar'
 
 export const Container = styled.ScrollView`
   display: flex;
   flex-direction: column;
-  /* background: #f3f5f2; */
   padding: 12px;
   width: 100%;
   margin-bottom: 12px;
   border-radius: 6px;
-  /* padding-left: 50px; */
 
   position: relative;
 `
@@ -24,7 +23,7 @@ export const Line = styled.View`
 `
 
 export const Icon = styled.View`
-  background: #fff;
+  background: ${primary};
   border: 2px solid #f3f5f2;
   border-radius: 5000px;
   width: 30px;
@@ -36,7 +35,7 @@ export const Icon = styled.View`
 
   position: absolute;
   left: 0;
-  top: 15px;
+  top: 8px;
 `
 
 export const Title = styled.Text`
@@ -54,7 +53,7 @@ export const Text = styled.Text`
 `
 
 export const Content = styled.View`
-  padding-left: 35px;
+  padding-left: 40px;
 `
 
 export const ButtonDelete = styled.TouchableOpacity`

@@ -8,7 +8,7 @@ interface DiscoubtProps {
 export const Discount: React.FC<DiscoubtProps> = ({ text }) => {
   return (
     <Container>
-      <Text>Cupom de desconto</Text>
+      <Text>Cupom de desconto </Text>
       {/* <Text>R$ 50,00</Text> */}
       <Text>{text}</Text>
     </Container>

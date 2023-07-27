@@ -22,9 +22,10 @@ export const Welcome = () => {
       <Banner source={require('../../../../public/assets/Auth/banner.png')} />
       <Logo />
       <Content>
-        <Title>Bem vindo ao Roze</Title>
+        <Title>Bem vindo ao Roze app</Title>
         <SubTitle>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum
+          Venha ser um influencer. Troque seus posts em redes sociais, por descontos
+          e produtos.
         </SubTitle>
         <ButtonArea>
           <ButtonLogin onPress={navigateToLogin}>

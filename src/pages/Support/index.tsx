@@ -53,46 +53,54 @@ export const Support: React.FC = () => {
           <ListItem>
             <Item>
               <ItemTitleArea>
-                <MaterialCommunityIcons
+                <Feather color={primary} name="user-check" size={20} />
+                {/* <MaterialCommunityIcons
                   color={primary}
                   name="view-grid-outline"
                   size={20}
-                />
-                <ItemTitle>Por onde começar</ItemTitle>
+                /> */}
+                <ItemTitle>Minha conta</ItemTitle>
               </ItemTitleArea>
               <ItemDesc>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                euismod . Proin tincidunt ipsum sit amet
+                Ao preencher seus dados cadastrais, disponibilize as redes sociais
+                onde vai postar as campanhas participantes, não esqueça de deixá-las
+                abertas durante o período de aprovação das missões e preze pela
+                veracidade dos dados, para não haver problemas na validação de sua
+                conta.
               </ItemDesc>
             </Item>
             <Item>
               <ItemTitleArea>
-                <Feather color={primary} name="user-check" size={20} />
-                <ItemTitle>Minha conta</ItemTitle>
+                <Feather color={primary} name="home" size={20} />
+                <ItemTitle>Restaurantes</ItemTitle>
               </ItemTitleArea>
               <ItemDesc>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                euismod . Proin tincidunt ipsum sit amet
+                Os estabelecimentos parceiros são variados, utilize as categorias, a
+                localização e a descrição da missão para escolher qual campanha
+                participar.
               </ItemDesc>
             </Item>
             <Item>
               <ItemTitleArea>
                 <Entypo color={primary} name="tablet-mobile-combo" size={20} />
-                <ItemTitle>Mobile App</ItemTitle>
+                <ItemTitle>Missões</ItemTitle>
               </ItemTitleArea>
               <ItemDesc>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                euismod . Proin tincidunt ipsum sit amet
+                Fique atento(a) a descrição da campanha, siga as regras do aplicativo
+                e do estabelecimento. Não esqueça de informar o link correto da
+                postagem, para análise e aprovação.
               </ItemDesc>
             </Item>
             <Item>
               <ItemTitleArea>
                 <MaterialIcons color={primary} name="attach-money" size={20} />
-                <ItemTitle>Lorem ipsum</ItemTitle>
+                <ItemTitle>Cupons</ItemTitle>
               </ItemTitleArea>
               <ItemDesc>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                euismod . Proin tincidunt ipsum sit amet
+                Quando sua missão for aprovada, ficará disponível um código para uso,
+                informe ao funcionário do estabelecimento. Utilize seus cupons antes
+                de expirarem e fique atento às condições para validá-lo. Uma vez
+                gerado o código, ele passa a ser invalido.
               </ItemDesc>
             </Item>
           </ListItem>
@@ -103,15 +111,15 @@ export const Support: React.FC = () => {
           <ContactLine />
           <ContactItem>
             <FontAwesome color={primary} name="whatsapp" size={20} />
-            <ContactItemTitle>(98) 76543-210</ContactItemTitle>
+            <ContactItemTitle>+55 11 93323‑8066</ContactItemTitle>
           </ContactItem>
           <ContactItem>
             <Foundation color={primary} name="telephone" size={20} />
-            <ContactItemTitle>(98) 76543-210</ContactItemTitle>
+            <ContactItemTitle>+55 11 93323‑8066</ContactItemTitle>
           </ContactItem>
           <ContactItem>
             <Fontisto color={primary} name="email" size={20} />
-            <ContactItemTitle>exemplo@email@exemploc.om</ContactItemTitle>
+            <ContactItemTitle>suporte@rozeapp.com.b</ContactItemTitle>
           </ContactItem>
         </Contact>
       </Container>

@@ -101,7 +101,7 @@ export const AuthRoutes: React.FC = () => {
         Notifications.removeNotificationSubscription(responseListener.current)
       }
     }
-  }, [hasUser])
+  }, [hasUser, userKey])
 
   async function registerForPushNotificationsAsync() {
     let token
@@ -116,7 +116,6 @@ export const AuthRoutes: React.FC = () => {
         alert('Failed to get push token for push notification!')
         return
       }
-      console.log('executou aqui')
       token = (await Notifications.getExpoPushTokenAsync()).data
     } else {
       alert('Must use physical device for Push Notifications')

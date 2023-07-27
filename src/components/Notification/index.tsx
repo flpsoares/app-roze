@@ -27,7 +27,7 @@ export const Notification: React.FC<App.Notification> = (notification) => {
   return (
     <Container>
       <Icon>
-        <Ionicons name="notifications-outline" color="#ccc" size={22} />
+        <Ionicons name="notifications-outline" color="#000" size={22} />
       </Icon>
       <Content>
         <Title>
