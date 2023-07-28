@@ -32,11 +32,7 @@ export const ModalOverlay = styled.Pressable`
   background-color: rgba(0, 0, 0, 0.5);
 `
 
-export const ModalButtonClose = styled.TouchableOpacity`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-`
+export const ModalButtonClose = styled.TouchableOpacity``
 
 export const ModalContainer = styled(Animated.ScrollView)`
   position: absolute;
@@ -47,8 +43,21 @@ export const ModalContainer = styled(Animated.ScrollView)`
   background-color: ${background};
 `
 
+export const ModalHeader = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  margin-top: 22px;
+`
+
+export const ModalTitle = styled.Text`
+  color: #fff;
+  font-size: 22px;
+`
+
 export const ModalListItem = styled.View`
-  margin-top: 52px;
+  margin-top: 22px;
 `
 
 export const NotificationButton = styled.TouchableOpacity`

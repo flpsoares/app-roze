@@ -3,8 +3,10 @@ import {
   Container,
   ModalButtonClose,
   ModalContainer,
+  ModalHeader,
   ModalListItem,
   ModalOverlay,
+  ModalTitle,
   NotificationButton,
   NotificationNumber,
   Right,
@@ -63,7 +65,6 @@ export const Header: React.FC<HeaderProps> = ({ title, hasPadding }) => {
     if (modalVisible) {
       NotificationsApi.updateViewNotification(userKey).then((res) => {
         makeUpdateNotifications()
-        console.log(res.data)
       })
     }
   }, [modalVisible])
@@ -90,9 +91,12 @@ export const Header: React.FC<HeaderProps> = ({ title, hasPadding }) => {
           contentContainerStyle={{ flexGrow: 1 }}
           style={animatedStyle}
         >
-          <ModalButtonClose onPress={closeModal}>
-            <AntDesign name="close" color="#fff" size={30} />
-          </ModalButtonClose>
+          <ModalHeader>
+            <ModalTitle>Notificações</ModalTitle>
+            <ModalButtonClose onPress={closeModal}>
+              <AntDesign name="close" color="#fff" size={30} />
+            </ModalButtonClose>
+          </ModalHeader>
           <ModalListItem>
             {notifications.map((n) => {
               return (

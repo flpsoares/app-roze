@@ -75,6 +75,7 @@ export const MissionDetail: React.FC = () => {
   useEffect(() => {
     MissionsApi.detail(userKey, route.params.id_camp).then((res) => {
       setMission(res.data)
+      console.log(res.data)
     })
   }, [route.params.id, route.params.id_camp])
 

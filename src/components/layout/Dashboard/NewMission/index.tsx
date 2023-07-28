@@ -54,7 +54,6 @@ export const NewMission: React.FC = () => {
     if (userKey) {
       MissionsApi.list(userKey)
         .then((res) => {
-          console.log(res.data.camps)
           setMissions(res.data.camps.slice(0, 6))
         })
         .catch((e) => {

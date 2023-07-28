@@ -76,7 +76,7 @@ export const Login = () => {
           <Banner source={require('../../../../public/assets/Auth/banner.png')} />
           <Logo />
           <Content>
-            <Title>Loginn</Title>
+            <Title>Login</Title>
             <InputItem>
               <InputTitle>E-mail:</InputTitle>
               <Input

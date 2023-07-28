@@ -10,6 +10,9 @@ import { MissionsStackRoutes } from './MissionsStackRoutes'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AuthApi from '../services/AuthApi'
 import { useUser } from '../contexts/AuthContext'
+import { MissionDetail } from '../pages/MissionDetail'
+import { Missions } from '../pages/Missions'
+import { NewMissions } from '../pages/NewMissions'
 
 const Drawer = createDrawerNavigator()
 
@@ -53,7 +56,6 @@ export const DrawerRoutes: React.FC = () => {
       <Drawer.Screen name="DashboardDrawer" component={Routes} />
       <Drawer.Screen name="MissionsDrawer" component={MissionsStackRoutes} />
       {/* <Routes /> */}
-      <Drawer.Screen name="Support" component={Support} />
     </Drawer.Navigator>
   )
 }

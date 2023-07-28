@@ -9,6 +9,8 @@ import { Coupons } from '../pages/Coupons'
 import { TabButton } from '../components/TabButton'
 import { MissionDetail } from '../pages/MissionDetail'
 import { MissionsStackRoutes } from './MissionsStackRoutes'
+import { Support } from '../pages/Support'
+import { NewMissions } from '../pages/NewMissions'
 const Tab = createBottomTabNavigator()
 
 export const Routes: React.FC = () => {
@@ -68,6 +70,26 @@ export const Routes: React.FC = () => {
             <TabButton name="bookmark-minus-outline" isActive={focused} />
           )
         }}
+      />
+      <Tab.Screen
+        name="Support"
+        component={Support}
+        options={{ headerShown: false, tabBarButton: () => null }}
+      />
+      <Tab.Screen
+        name="Missions"
+        component={Missions}
+        options={{ headerShown: false, tabBarButton: () => null }}
+      />
+      <Tab.Screen
+        name="NewMissions"
+        component={NewMissions}
+        options={{ headerShown: false, tabBarButton: () => null }}
+      />
+      <Tab.Screen
+        name="MissionDetail"
+        component={MissionDetail}
+        options={{ headerShown: false, tabBarButton: () => null }}
       />
     </Tab.Navigator>
   )
