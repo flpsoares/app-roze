@@ -59,20 +59,22 @@ export const MissionsInProgress: React.FC = () => {
           <ButtonSeeAllText>Ver tudo</ButtonSeeAllText>
         </ButtonSeeAll>
       </Header>
-      {missions.map((item, index) => {
-        return (
-          <ItemContainer
-            onPress={() => navigateToMission(item.id, item.id_camp)}
-            key={index}
-          >
-            <Left>
-              <ItemImage source={{ uri: item.img }} />
-              <ItemInfo>
-                <ItemTitle>{item.store}</ItemTitle>
-                <ItemName>{item.cam_name}</ItemName>
-              </ItemInfo>
-            </Left>
-            {/* {item.status === 'pending' && (
+      {missions
+        .filter((m) => m.status === 'work')
+        .map((item, index) => {
+          return (
+            <ItemContainer
+              onPress={() => navigateToMission(item.id, item.id_camp)}
+              key={index}
+            >
+              <Left>
+                <ItemImage source={{ uri: item.img }} />
+                <ItemInfo>
+                  <ItemTitle>{item.store}</ItemTitle>
+                  <ItemName>{item.cam_name}</ItemName>
+                </ItemInfo>
+              </Left>
+              {/* {item.status === 'pending' && (
               <ItemStatus status={item.status}>Pendente</ItemStatus>
             )}
             {item.status === 'approved' && (
@@ -84,9 +86,9 @@ export const MissionsInProgress: React.FC = () => {
             {item.status === 'work' && (
               <ItemStatus status={item.status}>Em andamento</ItemStatus>
             )} */}
-          </ItemContainer>
-        )
-      })}
+            </ItemContainer>
+          )
+        })}
     </Container>
   )
 }

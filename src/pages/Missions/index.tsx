@@ -54,7 +54,6 @@ export const Missions: React.FC = () => {
     MissionsApi.listMissionsWork(userKey)
       .then((res) => {
         setMissions(res.data)
-        console.log(res.data)
       })
       .finally(() => setIsLoading(false))
   }, [isFocused])
@@ -94,7 +93,7 @@ export const Missions: React.FC = () => {
               return m.status === 'approved'
             } else if (isReject) {
               return m.status === 'reject'
-            } else return m
+            } else return m.status === 'work'
           })
           .map((item, index) => {
             return (
