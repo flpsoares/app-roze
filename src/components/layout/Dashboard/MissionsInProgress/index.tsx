@@ -20,9 +20,11 @@ import { useIsFocused } from '@react-navigation/native'
 import { useNavigate } from '../../../../contexts/NavigateContext'
 import { ActivityIndicator, View } from 'react-native'
 import { primary } from '../../../../styles/globalVar'
+import { useList } from '../../../../contexts/ListContext'
 
 export const MissionsInProgress: React.FC = () => {
   const { userKey } = useUser()
+  const { updateMissions } = useList()
   const { navigateToMissionsStackRoutes, navigateToMissionDetail } = useNavigate()
 
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
@@ -41,7 +43,7 @@ export const MissionsInProgress: React.FC = () => {
         })
         .finally(() => setIsLoading(false))
     }
-  }, [userKey, isFocused])
+  }, [userKey, isFocused, updateMissions])
 
   if (isLoading) {
     return (

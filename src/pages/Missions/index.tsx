@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useUser } from '../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
 import { primary } from '../../styles/globalVar'
+import { useList } from '../../contexts/ListContext'
 
 export const Missions: React.FC = () => {
   const { userKey } = useUser()
@@ -15,6 +16,7 @@ export const Missions: React.FC = () => {
   const [missions, setMissions] = useState<App.MissionInProgress[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const isFocused = useIsFocused()
+  const { updateMissions } = useList()
 
   const [isPending, setIsPending] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
@@ -56,7 +58,7 @@ export const Missions: React.FC = () => {
         setMissions(res.data)
       })
       .finally(() => setIsLoading(false))
-  }, [isFocused])
+  }, [isFocused, updateMissions])
 
   if (isLoading) {
     return (

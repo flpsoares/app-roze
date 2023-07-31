@@ -25,6 +25,7 @@ import MissionsApi from '../../../../services/MissionsApi'
 import { useUser } from '../../../../contexts/AuthContext'
 import { useIsFocused } from '@react-navigation/native'
 import { primary } from '../../../../styles/globalVar'
+import { useList } from '../../../../contexts/ListContext'
 
 interface ItemProps {
   id: number
@@ -39,6 +40,7 @@ export const NewMission: React.FC = () => {
   const screenWidth = Dimensions.get('window').width
 
   const { navigateToNewMissions } = useNavigate()
+  const { redoMissions, updateMissions } = useList()
 
   const [missions, setMissions] = useState<App.Mission[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -47,6 +49,7 @@ export const NewMission: React.FC = () => {
 
   const participate = (id: number) => {
     MissionsApi.sendParticipate(userKey, id).then((res) => {
+      redoMissions()
       Alert.alert('Sucesso', res.data.text)
     })
   }
@@ -62,7 +65,7 @@ export const NewMission: React.FC = () => {
         })
         .finally(() => setIsLoading(false))
     }
-  }, [userKey, isFocused])
+  }, [userKey, isFocused, updateMissions])
 
   const renderItem = ({ item }: { item: App.Mission }) => (
     <ItemContainer>

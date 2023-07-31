@@ -27,6 +27,7 @@ import { AntDesign } from '@expo/vector-icons'
 import MissionsApi from '../../services/MissionsApi'
 import { useUser } from '../../contexts/AuthContext'
 import { Alert } from 'react-native'
+import { useList } from '../../contexts/ListContext'
 
 interface DropdownListProps {
   id: number
@@ -43,6 +44,7 @@ export const DropdownMissionList: React.FC<DropdownListProps> = ({
 }) => {
   const { navigateToMissionDetail } = useNavigate()
   const { userKey } = useUser()
+  const { redoMissions } = useList()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [secondModalIsOpen, setSecondModalIsOpen] = useState(false)
@@ -57,6 +59,7 @@ export const DropdownMissionList: React.FC<DropdownListProps> = ({
     if (link !== '') {
       MissionsApi.sendLink(userKey, id, link)
         .then((res) => {
+          redoMissions()
           changeModal()
         })
         .catch((e) => console.log(e.response.data))

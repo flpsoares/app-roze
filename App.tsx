@@ -8,6 +8,7 @@ import { AuthRoutes } from './src/routes/AuthRoutes'
 import { UserProvider } from './src/contexts/AuthContext'
 import { NotificationProvider } from './src/contexts/NotificationContext'
 import { PushNotificationProvider } from './src/contexts/PushNotificationsContext'
+import { ListProvider } from './src/contexts/ListContext'
 
 export default function App() {
   useEffect(() => {
@@ -29,10 +30,12 @@ export default function App() {
       <UserProvider>
         <NavigateProvider>
           <NotificationProvider>
-            <PushNotificationProvider>
-              <AuthRoutes />
-              <StatusBar style="light" backgroundColor="#131313" />
-            </PushNotificationProvider>
+            <ListProvider>
+              <PushNotificationProvider>
+                <AuthRoutes />
+                <StatusBar style="light" backgroundColor="#131313" />
+              </PushNotificationProvider>
+            </ListProvider>
           </NotificationProvider>
         </NavigateProvider>
       </UserProvider>
