@@ -3,6 +3,7 @@
     "name": "Roze",
     "slug": "app-roze",
     "version": "1.0.0",
+    "runtimeVersion": "1",
     "assetBundlePatterns": [
       "**/*"
     ],
