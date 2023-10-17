@@ -42,7 +42,7 @@ export const Login = () => {
 
   const handleSubmit = () => {
     setIsLoading(true)
-    AuthApi.login({ email, pwd: password })
+    AuthApi.login({ email: email.toLowerCase(), pwd: password })
       .then(async (res) => {
         await AsyncStorage.setItem('key', res.data.key)
         setHasUser(true)

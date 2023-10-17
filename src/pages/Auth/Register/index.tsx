@@ -125,7 +125,7 @@ export const Register = () => {
 
     const reqData: App.Register = {
       name,
-      email,
+      email: email.toLowerCase(),
       birth,
       city,
       state,
