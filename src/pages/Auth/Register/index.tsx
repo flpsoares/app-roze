@@ -307,6 +307,7 @@ export const Register = () => {
                     <Input
                       value={email}
                       onChangeText={(e) => setEmail(e)}
+                      autoCapitalize="none"
                       placeholderTextColor="#464646"
                       placeholder="E-mail@exemplo.com"
                     />
