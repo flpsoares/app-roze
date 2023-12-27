@@ -47,6 +47,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleIconName</key>
+	<string>icon</string>
+	<key>CFBundleIconFile</key>
+	<string>icon.png</string>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
   <key>UIStatusBarStyle</key>
