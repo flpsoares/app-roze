@@ -10,9 +10,9 @@
     "android": {
       "versionCode": 2
     },
-    "icon": "./public/assets/icon.png",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./public/assets/splash.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain"
     },
     "extra": {

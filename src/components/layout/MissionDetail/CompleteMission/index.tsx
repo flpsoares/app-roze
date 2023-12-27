@@ -12,7 +12,7 @@ export const CompleteMission: React.FC<CompleteMissionProps> = ({ onPress }) => 
   return (
     <Container onPress={onPress}>
       <Image
-        source={require('../../../../../public/assets/Mission/complete-mission.png')}
+        source={require('../../../../../assets/Mission/complete-mission.png')}
       />
       <Wrapper>
         <TitleArea>

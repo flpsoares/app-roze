@@ -196,7 +196,7 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
             <>
               <BannerArea>
                 <Banner
-                  source={require('../../../../public/assets/Auth/forgot-banner-01.png')}
+                  source={require('../../../../assets/Auth/forgot-banner-01.png')}
                 />
               </BannerArea>
               <Title>
@@ -222,7 +222,7 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
             <>
               <BannerArea>
                 <Banner
-                  source={require('../../../../public/assets/Auth/forgot-banner-02.png')}
+                  source={require('../../../../assets/Auth/forgot-banner-02.png')}
                 />
               </BannerArea>
               <Title>
@@ -280,7 +280,7 @@ export const ForgotPassword = ({ navigation }: ForgotaPasswordProps) => {
             <>
               <BannerArea>
                 <Banner
-                  source={require('../../../../public/assets/Auth/forgot-banner-03.png')}
+                  source={require('../../../../assets/Auth/forgot-banner-03.png')}
                 />
               </BannerArea>
               <Title>

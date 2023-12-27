@@ -5,7 +5,7 @@ export const Logo: React.FC = () => {
   return (
     <Container>
       <BackgroundLogo>
-        <Image source={require('../../../public/assets/logo.png')} />
+        <Image source={require('../../../assets/logo.png')} />
       </BackgroundLogo>
       <Title>Roze</Title>
     </Container>

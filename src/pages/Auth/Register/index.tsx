@@ -245,17 +245,17 @@ export const Register = () => {
           <Container>
             {step === 1 && (
               <Banner
-                source={require('../../../../public/assets/Auth/register-banner-01.png')}
+                source={require('../../../../assets/Auth/register-banner-01.png')}
               />
             )}
             {step === 2 && (
               <Banner
-                source={require('../../../../public/assets/Auth/register-banner-02.png')}
+                source={require('../../../../assets/Auth/register-banner-02.png')}
               />
             )}
             {step === 3 && (
               <Banner
-                source={require('../../../../public/assets/Auth/register-banner-03.png')}
+                source={require('../../../../assets/Auth/register-banner-03.png')}
               />
             )}
             <Content>
@@ -430,7 +430,7 @@ export const Register = () => {
                       />
                     ) : (
                       <SelectImageIcon
-                        source={require('../../../../public/assets/Auth/image-icon.png')}
+                        source={require('../../../../assets/Auth/image-icon.png')}
                       />
                     )}
                   </SelectImageButton>

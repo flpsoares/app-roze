@@ -17,7 +17,7 @@ export const ActiveCoupons: React.FC<ActiveCouponsProps> = ({ quantity }) => {
   return (
     <Container onPress={navigateToCoupons}>
       <Image
-        source={require('../../../../../public/assets/Dashboard/active-coupon.png')}
+        source={require('../../../../../assets/Dashboard/active-coupon.png')}
       />
       <Wrapper>
         <TitleArea>

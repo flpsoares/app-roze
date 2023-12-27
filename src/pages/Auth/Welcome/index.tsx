@@ -19,7 +19,7 @@ export const Welcome = () => {
 
   return (
     <Container>
-      <Banner source={require('../../../../public/assets/Auth/banner.png')} />
+      <Banner source={require('../../../../assets/Auth/banner.png')} />
       <Logo />
       <Content>
         <Title>Bem vindo ao Roze app</Title>

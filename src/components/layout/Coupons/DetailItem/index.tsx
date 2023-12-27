@@ -60,7 +60,7 @@ export const DetailItem: React.FC<App.Tickets> = (coupom) => {
 
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const gif = Asset.fromModule(require('../../../../../public/assets/gift.gif'))
+  const gif = Asset.fromModule(require('../../../../../assets/gift.gif'))
 
   const openModal = () => {
     setModalIsOpen(true)
@@ -92,7 +92,7 @@ export const DetailItem: React.FC<App.Tickets> = (coupom) => {
   const renderItem = ({ item }: { item }) => (
     <CarouselContainer>
       <CarouselImage
-        source={require('../../../../../public/assets/gift-image.png')}
+        source={require('../../../../../assets/gift-image.png')}
       />
       <CarouselOptionText>{item.title}</CarouselOptionText>
       <CarouselButtonSubmit onPress={openGif}>

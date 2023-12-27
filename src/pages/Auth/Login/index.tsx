@@ -73,7 +73,7 @@ export const Login = () => {
         contentContainerStyle={{ flexGrow: 1 }}
       >
         <Container>
-          <Banner source={require('../../../../public/assets/Auth/banner.png')} />
+          <Banner source={require('../../../../assets/Auth/banner.png')} />
           <Logo />
           <Content>
             <Title>Login</Title>

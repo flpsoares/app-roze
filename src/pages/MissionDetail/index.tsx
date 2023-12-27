@@ -139,7 +139,7 @@ export const MissionDetail: React.FC = () => {
             </SecondModalButtonClose>
             <SecondModalTitle>Link da missão enviado com sucesso</SecondModalTitle>
             <SecondModalBanner
-              source={require('../../../public/assets/Mission/mission-second-modal-banner.png')}
+              source={require('../../../assets/Mission/mission-second-modal-banner.png')}
             />
           </SecondModalContainer>
         </Modal>
